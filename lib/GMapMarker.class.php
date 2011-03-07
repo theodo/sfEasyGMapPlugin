@@ -49,7 +49,7 @@ class GMapMarker
    * @param string $js_name Javascript name of the marker
    * @param float $lat Latitude
    * @param float $lng Longitude
-   * @param GMapIcon $icon
+   * @param GMapMarkerImage $icon
    * @param GmapEvent[] array of GoogleMap Events linked to the marker
    * @author Fabrice Bernhard
    */
@@ -89,14 +89,14 @@ class GMapMarker
     return $this->js_name;
   }
   /**
-  * @return GMapIcon $icon
+  * @return GMapMarkerImage $icon
   */
   public function getIcon()
   {
     return null;//return $this->icon;
   }
   /**
-  * @return GMapIcon $icon
+  * @return GMapMarkerImage $shadow
   */
   public function getShadow()
   {

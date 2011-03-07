@@ -57,7 +57,6 @@
    <file baseinstalldir="/" md5sum="bf881493d4bba21950bac89d9f30b808" name="lib/GMapDirectionWaypoint.class.php" role="php" />
    <file baseinstalldir="/" md5sum="cec3c8cd555cec4697df106916e32964" name="lib/GMapEvent.class.php" role="php" />
    <file baseinstalldir="/" md5sum="4b46bfbd9ff36eb58f45baf2ed98b60f" name="lib/GMapGeocodedAddress.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="16866f1209b24b37006e81c4f2670a7d" name="lib/GMapIcon.class.php" role="php" />
    <file baseinstalldir="/" md5sum="56cadb301e62b95f0de899cc3ea2c68f" name="lib/GMapInfoWindow.class.php" role="php" />
    <file baseinstalldir="/" md5sum="f3f123a7decda13f5e4ade0bd263d146" name="lib/GMapMarker.class.php" role="php" />
    <file baseinstalldir="/" md5sum="69cd05e06a8cb56e54476b16a3076796" name="lib/GMapMarkerImage.class.php" role="php" />

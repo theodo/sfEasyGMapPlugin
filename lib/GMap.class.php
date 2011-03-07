@@ -21,9 +21,9 @@ if (!class_exists('GMapGeocodedAddress', true))
 {
   require_once(dirname(__FILE__).'/GMapGeocodedAddress.class.php');
 }
-if (!class_exists('GMapIcon', true))
+if (!class_exists('GMapMarkerImage', true))
 {
-  require_once(dirname(__FILE__).'/GMapIcon.class.php');
+  require_once(dirname(__FILE__).'/GMapMarkerImage.class.php');
 }
 if (!class_exists('GMapMarker', true))
 {
@@ -483,7 +483,7 @@ class GMap
 
   /**
    * Adds an icon to be loaded
-   * @param GMapIcon $icon A google Map Icon
+   * @param GMapMarkerImage $icon A google Map Icon
    */
   public function addIcon($icon)
   {
@@ -491,10 +491,10 @@ class GMap
   }
 
   /**
-   * returns the GMapIcon corresponding to a name
+   * returns the GMapMarkerImage corresponding to a name
    *
    * @param string $name
-   * @return GMapIcon
+   * @return GMapMarkerImage
    *
    * @author Vincent
    * @since 2008-12-02
@@ -536,7 +536,7 @@ class GMap
   {
     foreach($this->markers as $marker)
     {
-      if ($marker->getIcon() instanceof GMapIcon)
+      if ($marker->getIcon() instanceof GMapMarkerImage)
       {
         $this->addIcon($marker->getIcon());
       }
