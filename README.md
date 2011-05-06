@@ -12,9 +12,15 @@ Installation
 
         $ symfony plugin:install sfEasyGMapPlugin (Not tested)
 
-        or in your plugins directory:
+        or in your plugins directory via SVN:
 
         $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin/branches/v3 sfEasyGMapPlugin
+
+	or in your plugins directory via GIT:
+
+	$ git clone https://github.com/fabriceb/sfEasyGMapPlugin.git
+
+	When using SVN or GIT install, remember to enable the plugin in your ProjectConfiguration.class.php
 
   * Optional: enable the sample module in your `settings.yml`, sfEasyGMapPlugin
 
@@ -23,7 +29,7 @@ Installation
               .settings:
                 enabled_modules:      [default, sfEasyGMapPlugin]
 
-  * Optional: the v3 version still needs an API key for some functionalities, like Geocoding. Add the following lines in your `app.yml` file
+  * Google API keys: add the following lines in your `app.yml` file
 
             [php]
             all:
@@ -59,6 +65,8 @@ Examples
     * In the action:
 
             $this->gMap = new GMap();
+            $this->gMap->setZoom(0);
+            $this->gMap->setCenter(0, 0);
             $this->gMap->addMarker(new GMapMarker(51.245475,6.821373));
             $this->gMap->addMarker(new GMapMarker(46.262248,6.115969));
 
