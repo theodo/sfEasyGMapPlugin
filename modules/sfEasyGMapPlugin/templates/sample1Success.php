@@ -1,3 +1,5 @@
+<?php use_helper('GMap') ?>
+
 <div class="sample-message">
   <a href="/sfEasyGMapPlugin/index">Samples list</a> > <?php echo $message ?>
 </div>
