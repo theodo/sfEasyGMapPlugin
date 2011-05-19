@@ -12,15 +12,11 @@ Installation
 
         $ symfony plugin:install sfEasyGMapPlugin (Not tested)
 
-        or in your plugins directory via SVN:
+    or in your plugins directory via GIT (the SVN version is not updated anymore):
 
-        $ svn co http://svn.symfony-project.com/plugins/sfEasyGMapPlugin/branches/v3 sfEasyGMapPlugin
+        $ git clone https://github.com/theodo/sfEasyGMapPlugin.git
 
-	or in your plugins directory via GIT:
-
-	$ git clone https://github.com/fabriceb/sfEasyGMapPlugin.git
-
-	When using SVN or GIT install, remember to enable the plugin in your ProjectConfiguration.class.php
+    When using the GIT install, remember to enable the plugin in your ProjectConfiguration.class.php
 
   * Optional: enable the sample module in your `settings.yml`, sfEasyGMapPlugin
 
@@ -51,12 +47,12 @@ Examples
 
   All samples are available in the sfEasyGMapPlugin module of the plugin (/sfEasyGMapPlugin/index)
 
-  IMPORTANT ! The javascript in the samples will not work unless you put the js files in your web directory.
+  IMPORTANT ! The JavaScript in the samples will not work unless you put the js files in your web directory.
 
         $ ln -s ../plugins/sfEasyGMapPlugin/web web/sfEasyGMapPlugin
-        
+
         or use the symfony command :
-        $ php symfony plugin:publish-assets 
+        $ php symfony plugin:publish-assets
 
   * Sample 1
 
