@@ -1,7 +1,10 @@
 <?php
+require_once(dirname(__FILE__).'/../lib/external/lime.php');
 
-$test_files = glob(dirname(__FILE__)."/unit/*Test.php");
-foreach($test_files as $test_file)
+$tests = new lime_harness(array('verbose'=>true));
+$tests->register_glob(dirname(__FILE__).'/unit/*Test.php');
+$tests->run();
+if ($tests->stats['failed_tests'])
 {
-  include($test_file);
+  exit(1);
 }
