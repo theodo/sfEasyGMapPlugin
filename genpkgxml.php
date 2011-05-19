@@ -15,7 +15,7 @@ array('baseinstalldir' => '/',
  'packagedirectory' => dirname(__FILE__),
  'filelistgenerator' => 'file',
  'ignore' => array('TODO'),
- 'exceptions' => array('README' => 'doc', 'LICENSE' => 'doc'),
+ 'exceptions' => array('README.md' => 'doc', 'LICENSE' => 'doc'),
 ));
 
 $packagexml->setPackage('sfEasyGMapPlugin');
