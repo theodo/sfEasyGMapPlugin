@@ -23,9 +23,12 @@ $packagexml->setSummary('An easy, object-oriented, PHP abstraction of the Google
 $packagexml->setDescription('The sfEasyGMap plugin provides helpers and an objet-oriented PHP abstraction to the Google Maps API to ease the process of adding a Google Map and customising it in your symfony projects.');
 $packagexml->setChannel('plugins.symfony-project.org');
 $packagexml->addMaintainer('lead', 'fabriceb', 'Fabrice Bernhard', 'fabriceb@theodo.fr');
-$packagexml->addMaintainer('developer', 'vincentg', 'Vincent Guillon', 'vincentg@theodo.fr');
+$packagexml->addMaintainer('developer', 'vincentguillon', 'Vincent Guillon', 'vincentg@theodo.fr');
 $packagexml->addMaintainer('developer', 'laurentb', 'Laurent Bachelier', 'laurentb@theodo.fr');
 $packagexml->addMaintainer('developer', 'chok', 'Maxime Picaud', 'chokorp@gmail.com');
+$packagexml->addMaintainer('contributor', 'gionn', 'Giovanni Toraldo', 'gt@libersoft.it');
+$packagexml->addMaintainer('contributor', 'marekkalnik', 'Marek Kalnik', 'marekk@theodo.fr');
+$packagexml->addMaintainer('contributor', 'jlirochon', 'Julien Lirochon', 'julien@lirochon.net');
 
 $packagexml->setLicense('MIT License', 'http://www.symfony-project.org/license');
 

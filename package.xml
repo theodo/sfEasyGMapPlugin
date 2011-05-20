@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -15,7 +15,7 @@
  </lead>
  <developer>
   <name>Vincent Guillon</name>
-  <user>vincentg</user>
+  <user>vincentguillon</user>
   <email>vincentg@theodo.fr</email>
   <active>yes</active>
  </developer>
@@ -31,8 +31,26 @@
   <email>chokorp@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2009-11-20</date>
- <time>18:56:33</time>
+ <contributor>
+  <name>Giovanni Toraldo</name>
+  <user>gionn</user>
+  <email>gt@libersoft.it</email>
+  <active>yes</active>
+ </contributor>
+ <contributor>
+  <name>Marek Kalnik</name>
+  <user>marekkalnik</user>
+  <email>marekk@theodo.fr</email>
+  <active>yes</active>
+ </contributor>
+ <contributor>
+  <name>Julien Lirochon</name>
+  <user>jlirochon</user>
+  <email>julien@lirochon.net</email>
+  <active>yes</active>
+ </contributor>
+ <date>2011-05-20</date>
+ <time>11:05:10</time>
  <version>
   <release>3.1.0</release>
   <api>3.1.0</api>
@@ -48,45 +66,46 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
-   <file baseinstalldir="/" md5sum="58b1b30932ebb188a818848c57f52395" name="lib/GMap.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="0b5ac4112113c9e056fda2c441034d4f" name="lib/GMapBounds.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="3771bda32a68cf97b039c5f766aaad0d" name="lib/GMapClient.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="75ccc4a2d72483cbfe545c1cdf2fba0f" name="lib/GMap.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="8a99662edbe656940d29e48e5042f2ec" name="lib/GMapBounds.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="934bc52dca38f5bc119432b6cfc2a084" name="lib/GMapClient.class.php" role="php" />
    <file baseinstalldir="/" md5sum="f5aaa42680c7de08aaf2924f5c4b3485" name="lib/GMapClientTestCache.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="88d5fc21f6612f9e1f443f8fdf833738" name="lib/GMapCoord.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="7dd37dc37ecb73763b4cb3f61d2c5680" name="lib/GMapDirection.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="c4d2cbc9b03ad92ae8af420d0e534bdc" name="lib/GMapCoord.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="c13093f548d3a9b5c4a21e88858529ec" name="lib/GMapDirection.class.php" role="php" />
    <file baseinstalldir="/" md5sum="bf881493d4bba21950bac89d9f30b808" name="lib/GMapDirectionWaypoint.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="cec3c8cd555cec4697df106916e32964" name="lib/GMapEvent.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="4b46bfbd9ff36eb58f45baf2ed98b60f" name="lib/GMapGeocodedAddress.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="56cadb301e62b95f0de899cc3ea2c68f" name="lib/GMapInfoWindow.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="f3f123a7decda13f5e4ade0bd263d146" name="lib/GMapMarker.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="b8695caee22e09943a56715347fa5e0f" name="lib/GMapEvent.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="3e891011fc8dba1147300a135ca7b604" name="lib/GMapGeocodedAddress.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="03f273ffa238f8a714dd8da0105c665f" name="lib/GMapInfoWindow.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="fa220757566fea34b7031345897413d9" name="lib/GMapMarker.class.php" role="php" />
    <file baseinstalldir="/" md5sum="69cd05e06a8cb56e54476b16a3076796" name="lib/GMapMarkerImage.class.php" role="php" />
-   <file baseinstalldir="/" md5sum="5eea324efafd0c9c636420fbb66d86b0" name="lib/external/lime.php" role="php" />
+   <file baseinstalldir="/" md5sum="ebc6227b5a82d78454b92f7082d77c7f" name="lib/external/lime.php" role="php" />
    <file baseinstalldir="/" md5sum="45c743c29f6ddf4aa61bcf2e70ddbd56" name="lib/external/RenderTag.class.php" role="php" />
    <file baseinstalldir="/" md5sum="2f02a3038dbb7b6fbc51e90dafa15ac5" name="lib/helper/GMapHelper.php" role="php" />
    <file baseinstalldir="/" md5sum="44694a4d49de27e1cb7c81a02d4696e4" name="modules/phpOnlySamples/01_map-simple.php" role="php" />
    <file baseinstalldir="/" md5sum="f331cd0b97b6c8e7d388acbb08f0ea1b" name="modules/phpOnlySamples/02_event-simple.php" role="php" />
    <file baseinstalldir="/" md5sum="f331cd0b97b6c8e7d388acbb08f0ea1b" name="modules/phpOnlySamples/03_event-closure.php" role="php" />
-   <file baseinstalldir="/" md5sum="a2b4deaa8e04ac2a2b4c5f15e4504d68" name="modules/sfEasyGMapPlugin/actions/actions.class.php" role="php" />
+   <file baseinstalldir="/" md5sum="aadcad9f67a48633f6c3b3245ad3dc6d" name="modules/sfEasyGMapPlugin/actions/actions.class.php" role="php" />
    <file baseinstalldir="/" md5sum="7530ea937f6b24415751ec11eb0aae4d" name="modules/sfEasyGMapPlugin/config/view.yml" role="data" />
    <file baseinstalldir="/" md5sum="96a77b4027139b6500e287f1a0f4a876" name="modules/sfEasyGMapPlugin/templates/indexSuccess.php" role="php" />
-   <file baseinstalldir="/" md5sum="d87106f4ac49e91d87b0159c56dcff22" name="modules/sfEasyGMapPlugin/templates/sample1Success.php" role="php" />
-   <file baseinstalldir="/" md5sum="60a3830b8250687905cf87a3d494080a" name="test/TestSuite.php" role="php" />
+   <file baseinstalldir="/" md5sum="c105e05bc8847936457a7dca01296d06" name="modules/sfEasyGMapPlugin/templates/sample1Success.php" role="php" />
+   <file baseinstalldir="/" md5sum="9f024d613444e1fe838bcae682a2e57d" name="test/TestSuite.php" role="php" />
    <file baseinstalldir="/" md5sum="9351bf99d8167cd9b73119625341e637" name="test/bootstrap/functional.php" role="php" />
    <file baseinstalldir="/" md5sum="05c1f2fa0c67f5b1a3bd6f0d10e9bf3c" name="test/bootstrap/unit.php" role="php" />
-   <file baseinstalldir="/" md5sum="69ea278b98e628fb5716de46c5a7cb82" name="test/unit/GMapBoundsTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="e9f7695d02fde8042ca1ee88d334f593" name="test/unit/GMapClientTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="fa29cfc4e12226f4cbba24ff3d775df2" name="test/unit/GMapCoordTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="245491be63c6f9c02a2823cb63e3d982" name="test/unit/GMapBoundsTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="d643774ed83dbd800c233fb741068279" name="test/unit/GMapClientTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="78f32b323f2c5f2d69f27a1ece1f7613" name="test/unit/GMapCoordTest.php" role="php" />
    <file baseinstalldir="/" md5sum="0a426693adbf31e67b51969fe0ff4602" name="test/unit/GMapGeocodedAddressTest.php" role="php" />
-   <file baseinstalldir="/" md5sum="39cefa8c9fd7930effdf10f8bfd716c5" name="test/unit/GMapOptionsTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="334ba6eeb53ce4063999f1e7c725836f" name="test/unit/GMapOptionsTest.php" role="php" />
    <file baseinstalldir="/" md5sum="b88f384a381725b5cef4722c7e78ca61" name="test/unit/GMapTest.php" role="php" />
    <file baseinstalldir="/" md5sum="0e7670eae30269b674bc12e1fdb10062" name="web/css/sfEasyGMapPlugin.css" role="data" />
-   <file baseinstalldir="/" md5sum="8cdf6a3d4e3578e80437d526b76b0ef3" name="web/css/sfEasyGMapPlugin.sample.css" role="data" />
+   <file baseinstalldir="/" md5sum="7e0015cc0ddb49608ad75844ecb61d67" name="web/css/sfEasyGMapPlugin.sample.css" role="data" />
    <file baseinstalldir="/" md5sum="ad6a2ffbf0f57151f7abd7eef633d869" name="web/images/nice_icon.png" role="data" />
    <file baseinstalldir="/" md5sum="5c8b459e1380b05f9a7104328c69b844" name="web/js/addressGuesser.js" role="data" />
    <file baseinstalldir="/" md5sum="1e6c837bc2e06ab3bae7da8e97b60036" name="web/js/sfEasyGMapPlugin.js" role="data" />
-   <file baseinstalldir="/" md5sum="51ca0294405bbf490a062852f7653a8b" name="web/js/sfEasyGMapPlugin.sample.js" role="data" />
+   <file baseinstalldir="/" md5sum="fd73e7a768042c337e3dfe09dbc3a04d" name="web/js/sfEasyGMapPlugin.sample.js" role="data" />
+   <file baseinstalldir="/" md5sum="aa1ad78347254d12205e808283e657fb" name="genpkgxml.php" role="php" />
    <file baseinstalldir="/" md5sum="57901f8330cd31769aa051e6ede325a9" name="LICENSE" role="doc" />
-   <file baseinstalldir="/" md5sum="fa18bcc5b408bf7c5f099c96f581e882" name="README" role="doc" />
+   <file baseinstalldir="/" md5sum="28594868fd45e3301d0694de972fe150" name="README.md" role="doc" />
   </dir>
  </contents>
  <dependencies>
