@@ -58,7 +58,7 @@ class GMap
     'draggingCursor' => null,
     // boolean If false, prevents the map from being dragged. Dragging is enabled by default.  
     'draggable' => null,
-    // boolean If true, enables scrollwheel zooming on the map. The scrollwheel is disabled by default.  
+    // boolean If true, enables scrollwheel zooming on the map. The scrollwheel is enabled by default.
     'scrollwheel' => null,
     // boolean If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are enabled by default.  
     'keyboardShortcuts' => null,
