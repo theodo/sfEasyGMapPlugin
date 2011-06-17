@@ -151,7 +151,7 @@ class GMapClient
     // find root domain (www.local.dev.example.com -> example.com)
     $rootDomain = null;
     $tokens = explode('.', $domain);
-    if (sizeof($tokens) > 2)
+    if (count($tokens) > 2)
     {
       $rootDomain = implode('.', array_slice($tokens, -2, 2));
     }
@@ -161,7 +161,7 @@ class GMapClient
       // exact domain match (ex: www.local.dev.example.com)
       $api_key = $api_keys[$domain];
     }
-    elseif ($rootDomain !== null && is_array($api_keys) && array_key_exists($rootDomain, $api_keys))
+    else if ($rootDomain !== null && is_array($api_keys) && array_key_exists($rootDomain, $api_keys))
     {
       // root domain match (ex: example.com)
       $api_key = $api_keys[$rootDomain];
@@ -265,12 +265,12 @@ class GMapClient
 
     if ($language !== null)
     {
-      $js_url .= "&language=$language";
+      $js_url .= '&language='.$language;
     }
 
     if ($region !== null)
     {
-      $js_url .= "&region=$region";
+      $js_url .= '&region='.$region;
     }
 
     return $js_url;
