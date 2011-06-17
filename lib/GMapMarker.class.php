@@ -254,14 +254,14 @@ class GMapMarker
     {
       $this->addEvent(new GMapEvent(
                       'click',
-                      $this->info_window->toJs()."\n      ".$this->info_window->getName().".open(".$map_js_name.", ".$this->getName().");"
+                      $this->info_window->toJs()."\n      ".$this->info_window->getName().'.open('.$map_js_name.', '.$this->getName().");"
       ));
     }
 
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
     foreach ($this->custom_properties as $attribute => $value)
     {
-      $return .= $this->getName().".".$attribute." = '".$value."';";
+      $return .= $this->getName().'.'.$attribute." = '".$value."';";
     }
     foreach ($this->events as $event)
     {

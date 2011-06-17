@@ -49,7 +49,9 @@ function include_map_javascript($gMap)
 function include_google_map_javascript_file($gMap)
 {
   if ($gMap instanceof sfOutputEscaper)
+  {
     $gMap = $gMap->getRawValue();
+  }
 
   ?>
   <script language="javascript" src ="<?php echo $gMap->getGoogleJsUrl() ?>"></script>
@@ -86,11 +88,19 @@ function include_search_location_form()
 function include_address_guesser(GMapAddressGuesser $addressGuesser, $options = array())
 {
   if ($addressGuesser instanceof sfOutputEscaper)
+  {
     $addressGuesser = $addressGuesser->getRawValue();
+  }
+
   if (!($addressGuesser instanceof GMapAddressGuesser))
+  {
     throw new InvalidArgumentException('addressGuesser must be an instance of GMapAddressGuesser.');
+  }
+
   if (!is_array($options))
+  {
     throw new InvalidArgumentException('options must be an array.');
+  }
 
   use_helper('JavascriptBase');
 
