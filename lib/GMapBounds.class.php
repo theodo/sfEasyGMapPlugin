@@ -43,7 +43,6 @@ class GMapBounds
     return $this->ne;
   }
 
-
   /**
    *
    * @return GMapCoord
@@ -56,7 +55,6 @@ class GMapBounds
     return $this->sw;
   }
 
-
   /**
    *
    * @param string $string
@@ -66,21 +64,20 @@ class GMapBounds
    */
   static public function createFromString($string)
   {
-    preg_match('/\(\((.*?)\), \((.*?)\)\)/',$string,$matches);
-    if (count($matches)==3)
+    //((48.82415805606007,%202.308330535888672),%20(48.867086142850226,%202.376995086669922))
+    preg_match('/\(\((.*?)\), \((.*?)\)\)/', $string, $matches);
+    if (count($matches) == 3)
     {
       $sw = GMapCoord::createFromString($matches[1]);
       $ne = GMapCoord::createFromString($matches[2]);
-      if ( !is_null($sw) && !is_null($ne))
+      if (!is_null($sw) && !is_null($ne))
       {
 
-        return new GMapBounds($sw,$ne);
+        return new GMapBounds($sw, $ne);
       }
 
       return null;
     }
-
-    //((48.82415805606007,%202.308330535888672),%20(48.867086142850226,%202.376995086669922))
   }
 
   /**
@@ -119,23 +116,23 @@ class GMapBounds
     $lng_tl = $this->getNorthEast()->getLongitude();
     $lng_br = $this->getSouthWest()->getLongitude();
 
-    if ($margin!=0)
+    if ($margin != 0)
     {
-      $lat_margin = $margin * ($lat_tl-$lat_br);
+      $lat_margin = $margin * ($lat_tl - $lat_br);
       $lat_tl -= $lat_margin;
       $lat_br += $lat_margin;
 
-      $lng_margin = $margin * ($lng_br-$lng_tl);
+      $lng_margin = $margin * ($lng_br - $lng_tl);
       $lng_tl += $lng_margin;
       $lng_br -= $lng_margin;
     }
 
     $sub_query = '%s BETWEEN %F AND %F';
-    $lng_subquery = sprintf($sub_query,$lat_col_name, $lat_br, $lat_tl);
-    $lat_subquery = sprintf($sub_query,$lng_col_name, $lng_br, $lng_tl);
+    $lng_subquery = sprintf($sub_query, $lat_col_name, $lat_br, $lat_tl);
+    $lat_subquery = sprintf($sub_query, $lng_col_name, $lng_br, $lng_tl);
 
-    $criteria->add($lat_col_name,$lat_subquery,CRITERIA::CUSTOM);
-    $criteria->add($lng_col_name,$lng_subquery,CRITERIA::CUSTOM);
+    $criteria->add($lat_col_name, $lat_subquery, CRITERIA::CUSTOM);
+    $criteria->add($lng_col_name, $lng_subquery, CRITERIA::CUSTOM);
 
     return $criteria;
   }
@@ -155,10 +152,10 @@ class GMapBounds
       return null;
     }
 
-    return floatval(($this->getSouthWest()->getLatitude()+$this->getNorthEast()->getLatitude())/2);
+    return floatval(($this->getSouthWest()->getLatitude() + $this->getNorthEast()->getLatitude()) / 2);
   }
 
-   /**
+  /**
    * Get the longitude of the center of the zone
    *
    * @return integer
@@ -173,10 +170,10 @@ class GMapBounds
       return null;
     }
 
-    return floatval(($this->getSouthWest()->getLongitude()+$this->getNorthEast()->getLongitude())/2);
+    return floatval(($this->getSouthWest()->getLongitude() + $this->getNorthEast()->getLongitude()) / 2);
   }
 
-   /**
+  /**
    * Get the coordinates of the center of the zone
    *
    * @return GMapCoord
@@ -199,7 +196,7 @@ class GMapBounds
   public function getHeight()
   {
 
-    return abs($this->getNorthEast()->getLatitude()-$this->getSouthWest()->getLatitude());
+    return abs($this->getNorthEast()->getLatitude() - $this->getSouthWest()->getLatitude());
   }
 
   /**
@@ -212,7 +209,7 @@ class GMapBounds
   public function getWidth()
   {
 
-    return abs($this->getNorthEast()->getLongitude()-$this->getSouthWest()->getLongitude());
+    return abs($this->getNorthEast()->getLongitude() - $this->getSouthWest()->getLongitude());
   }
 
   /**
@@ -228,10 +225,10 @@ class GMapBounds
     $bounds = new GMapBounds();
     $lat = $this->getCenterLat();
     $lng = $this->getCenterLng();
-    $bounds->getNorthEast()->setLatitude($factor*$this->getNorthEast()->getLatitude()+$lat*(1-$factor));
-    $bounds->getSouthWest()->setLatitude($factor*$this->getSouthWest()->getLatitude()+$lat*(1-$factor));
-    $bounds->getNorthEast()->setLongitude($factor*$this->getNorthEast()->getLongitude()+$lng*(1-$factor));
-    $bounds->getSouthWest()->setLongitude($factor*$this->getSouthWest()->getLongitude()+$lng*(1-$factor));
+    $bounds->getNorthEast()->setLatitude($factor * $this->getNorthEast()->getLatitude() + $lat * (1 - $factor));
+    $bounds->getSouthWest()->setLatitude($factor * $this->getSouthWest()->getLatitude() + $lat * (1 - $factor));
+    $bounds->getNorthEast()->setLongitude($factor * $this->getNorthEast()->getLongitude() + $lng * (1 - $factor));
+    $bounds->getSouthWest()->setLongitude($factor * $this->getSouthWest()->getLongitude() + $lng * (1 - $factor));
 
     return $bounds;
   }
@@ -248,15 +245,13 @@ class GMapBounds
   {
     if ($zoom_coef > 0)
     {
-      $bounds = $this->getHomothety(pow(2,$zoom_coef));
+      $bounds = $this->getHomothety(pow(2, $zoom_coef));
 
       return $bounds;
     }
 
     return $this;
   }
-
-
 
   /**
    * Returns the most appropriate zoom to see the bounds on a map with min(width,height) = $min_w_h
@@ -274,28 +269,28 @@ class GMapBounds
 
     /*
 
-    formula: the width of the bounds in "pixels" is pix_w * 2^z
-    We want pix_w * 2^z to fit in min_w_h so we are looking for
-    z = round ( log2 ( min_w_h / pix_w  ) )
+      formula: the width of the bounds in "pixels" is pix_w * 2^z
+      We want pix_w * 2^z to fit in min_w_h so we are looking for
+      z = round ( log2 ( min_w_h / pix_w  ) )
      */
 
-    $sw_lat_pix = GMapCoord::fromLatToPix($this->getSouthWest()->getLatitude(),0);
-    $ne_lat_pix = GMapCoord::fromLatToPix($this->getNorthEast()->getLatitude(),0);
-    $pix_h = abs($sw_lat_pix-$ne_lat_pix);
+    $sw_lat_pix = GMapCoord::fromLatToPix($this->getSouthWest()->getLatitude(), 0);
+    $ne_lat_pix = GMapCoord::fromLatToPix($this->getNorthEast()->getLatitude(), 0);
+    $pix_h = abs($sw_lat_pix - $ne_lat_pix);
     if ($pix_h > 0)
     {
       $factor_h = $min_w_h / $pix_h;
     }
 
-    $sw_lng_pix = GMapCoord::fromLngToPix($this->getSouthWest()->getLongitude(),0);
-    $ne_lng_pix = GMapCoord::fromLngToPix($this->getNorthEast()->getLongitude(),0);
-    $pix_w = abs($sw_lng_pix-$ne_lng_pix);
+    $sw_lng_pix = GMapCoord::fromLngToPix($this->getSouthWest()->getLongitude(), 0);
+    $ne_lng_pix = GMapCoord::fromLngToPix($this->getNorthEast()->getLongitude(), 0);
+    $pix_w = abs($sw_lng_pix - $ne_lng_pix);
     if ($pix_w > 0)
     {
       $factor_w = $min_w_h / $pix_w;
     }
 
-    $factor = min($factor_w,$factor_h);
+    $factor = min($factor_w, $factor_h);
 
     // bounds is one point, no zoom can be determined
     if ($factor == $infinity)
@@ -304,7 +299,7 @@ class GMapBounds
       return $default_zoom;
     }
 
-    return round(log($factor,2));
+    return round(log($factor, 2));
   }
 
   /**
@@ -322,7 +317,7 @@ class GMapBounds
     $max_lat = -1000;
     $min_lng = 1000;
     $max_lng = -1000;
-    foreach($boundss as $bounds)
+    foreach ($boundss as $bounds)
     {
       $min_lat = min($min_lat, $bounds->getSouthWest()->getLatitude());
       $min_lng = min($min_lng, $bounds->getSouthWest()->getLongitude());
@@ -332,13 +327,13 @@ class GMapBounds
 
     if ($margin > 0)
     {
-      $min_lat = $min_lat - $margin*($max_lat-$min_lat);
-      $min_lng = $min_lng - $margin*($max_lng-$min_lng);
-      $max_lat = $max_lat + $margin*($max_lat-$min_lat);
-      $max_lng = $max_lng + $margin*($max_lng-$min_lng);
+      $min_lat = $min_lat - $margin * ($max_lat - $min_lat);
+      $min_lng = $min_lng - $margin * ($max_lng - $min_lng);
+      $max_lat = $max_lat + $margin * ($max_lat - $min_lat);
+      $max_lng = $max_lng + $margin * ($max_lng - $min_lng);
     }
 
-    $bounds = new GMapBounds(new GMapCoord($min_lat, $min_lng),new GMapCoord($max_lat, $max_lng));
+    $bounds = new GMapBounds(new GMapCoord($min_lat, $min_lng), new GMapCoord($max_lat, $max_lng));
     return $bounds;
   }
 
@@ -357,7 +352,7 @@ class GMapBounds
     $max_lat = -1000;
     $min_lng = 1000;
     $max_lng = -1000;
-    foreach($coords as $coord)
+    foreach ($coords as $coord)
     {
       /* @var $coord GMapCoord */
       $min_lat = min($min_lat, $coord->getLatitude());
@@ -368,37 +363,35 @@ class GMapBounds
 
     if ($margin > 0)
     {
-      $min_lat = $min_lat - $margin*($max_lat-$min_lat);
-      $min_lng = $min_lng - $margin*($max_lng-$min_lng);
-      $max_lat = $max_lat + $margin*($max_lat-$min_lat);
-      $max_lng = $max_lng + $margin*($max_lng-$min_lng);
+      $min_lat = $min_lat - $margin * ($max_lat - $min_lat);
+      $min_lng = $min_lng - $margin * ($max_lng - $min_lng);
+      $max_lat = $max_lat + $margin * ($max_lat - $min_lat);
+      $max_lng = $max_lng + $margin * ($max_lng - $min_lng);
     }
-    $bounds = new GMapBounds(new GMapCoord($min_lat, $min_lng),new GMapCoord($max_lat, $max_lng));
+    $bounds = new GMapBounds(new GMapCoord($min_lat, $min_lng), new GMapCoord($max_lat, $max_lng));
 
     return $bounds;
   }
 
-
   /**
-  *
-  * @param GMapMarker[] $markers array of MArkers
-  * @param float $margin margin factor for the bounds
-  * @return GMapBounds
-  * @author fabriceb
-  * @since 2009-05-02
-  *
-  **/
+   *
+   * @param GMapMarker[] $markers array of MArkers
+   * @param float $margin margin factor for the bounds
+   * @return GMapBounds
+   * @author fabriceb
+   * @since 2009-05-02
+   *
+   * */
   public static function getBoundsContainingMarkers($markers, $margin = 0)
   {
     $coords = array();
-    foreach($markers as $marker)
+    foreach ($markers as $marker)
     {
       array_push($coords, $marker->getGMapCoord());
     }
 
     return GMapBounds::getBoundsContainingCoords($coords, $margin);
   }
-
 
   /**
    * Calculate the bounds corresponding to a specific center and zoom level for a give map size in pixels
@@ -422,12 +415,12 @@ class GMapBounds
     $center_lng = $center_coord->getLongitude();
 
     $pix = GMapCoord::fromLatToPix($center_lat, $zoom);
-    $ne_lat = GMapCoord::fromPixToLat($pix - round(($height-1) / 2), $zoom);
-    $sw_lat = GMapCoord::fromPixToLat($pix + round(($height-1) / 2), $zoom);
+    $ne_lat = GMapCoord::fromPixToLat($pix - round(($height - 1) / 2), $zoom);
+    $sw_lat = GMapCoord::fromPixToLat($pix + round(($height - 1) / 2), $zoom);
 
     $pix = GMapCoord::fromLngToPix($center_lng, $zoom);
-    $sw_lng = GMapCoord::fromPixToLng($pix - round(($width-1) / 2), $zoom);
-    $ne_lng = GMapCoord::fromPixToLng($pix + round(($width-1) / 2), $zoom);
+    $sw_lng = GMapCoord::fromPixToLng($pix - round(($width - 1) / 2), $zoom);
+    $ne_lng = GMapCoord::fromPixToLng($pix + round(($width - 1) / 2), $zoom);
 
     return new GMapBounds(new GMapCoord($sw_lat, $sw_lng), new GMapCoord($ne_lat, $ne_lng));
   }
@@ -442,18 +435,16 @@ class GMapBounds
   public function containsGMapCoord(GMapCoord $gmap_coord)
   {
     $is_inside =
-      (
-      $gmap_coord->getLatitude() < $this->getNorthEast()->getLatitude()
-      &&
-      $gmap_coord->getLatitude() > $this->getSouthWest()->getLatitude()
-      &&
-      $gmap_coord->getLongitude() < $this->getNorthEast()->getLongitude()
-      &&
-      $gmap_coord->getLongitude() > $this->getSouthWest()->getLongitude()
-      );
+            (
+            $gmap_coord->getLatitude() < $this->getNorthEast()->getLatitude()
+            &&
+            $gmap_coord->getLatitude() > $this->getSouthWest()->getLatitude()
+            &&
+            $gmap_coord->getLongitude() < $this->getNorthEast()->getLongitude()
+            &&
+            $gmap_coord->getLongitude() > $this->getSouthWest()->getLongitude()
+            );
 
     return $is_inside;
   }
-
-
 }

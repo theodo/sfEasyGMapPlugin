@@ -7,17 +7,17 @@ if (!class_exists('sfCache'))
     
   }
 }
+
 /**
  * A fake cache class to be able to test the GMapClient class
  * @author Fabrice Bernhard
  */
-
 class GMapClientTestCache extends sfCache
 {
   public function get($key, $default = null)
   {
-    $format = substr($key,0,3);
-    switch($format)
+    $format = substr($key, 0, 3);
+    switch ($format)
     {
       case 'csv':
         return '200,8,48.8537950,2.3369433';
@@ -75,29 +75,34 @@ class GMapClientTestCache extends sfCache
   {
     return true;
   }
+
   public function has($key)
   {
     return true;
   }
+
   public function remove($key)
   {
     return true;
   }
+
   public function removePattern($pattern)
   {
     return true;
   }
+
   public function clean($mode = self::ALL)
   {
     return true;
   }
+
   public function getTimeout($key)
   {
     return null;
   }
+
   public function getLastModified($key)
   {
     return null;
   }
-
 }

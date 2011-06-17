@@ -6,14 +6,15 @@
  * @author Fabrice Bernhard
  *
  */
+
 class GMapMarker
 {
-   /**
+  /**
    * javascript name of the marker
    *
    * @var string
    */
-  protected $js_name        = null;
+  protected $js_name = null;
   protected $options = array(
     //  Map  Map on which to display Marker.
     'map ' => null,
@@ -41,8 +42,8 @@ class GMapMarker
     'zIndex ' => null,
   );
   protected $info_window = null;
-  protected $shadow           = null;
-  protected $events         = array();
+  protected $shadow = null;
+  protected $events = array();
   protected $custom_properties = array();
 
   /**
@@ -53,14 +54,14 @@ class GMapMarker
    * @param GmapEvent[] array of GoogleMap Events linked to the marker
    * @author Fabrice Bernhard
    */
-  public function __construct($lat,$lng,$options = array(), $js_name = null,$events=array())
+  public function __construct($lat, $lng, $options = array(), $js_name = null, $events=array())
   {
     $js_name = $js_name ? $js_name : 'marker_'.uniqid();
 
     $this->js_name = $js_name;
     $this->setOptions($options);
-    $this->setGMapCoord(new GMapCoord($lat,$lng));
-    $this->events  = $events;
+    $this->setGMapCoord(new GMapCoord($lat, $lng));
+    $this->events = $events;
   }
 
   /**
@@ -70,38 +71,41 @@ class GMapMarker
    * @param GMapGeocodedAddress $gmap_geocoded_address
    * @return GMapMarker
    */
-  public static function constructFromGMapGeocodedAddress($gmap_geocoded_address,$js_name='marker')
+  public static function constructFromGMapGeocodedAddress($gmap_geocoded_address, $js_name='marker')
   {
     if (!$gmap_geocoded_address instanceof GMapGeocodedAddress)
     {
       throw new sfException('object passed to constructFromGMapGeocodedAddress is not a GMapGeocodedAddress');
     }
 
-    return new GMapMarker($js_name,$gmap_geocoded_address->getLat(),$gmap_geocoded_address->getLng());
+    return new GMapMarker($js_name, $gmap_geocoded_address->getLat(), $gmap_geocoded_address->getLng());
   }
 
   /**
-  * @return string $js_name Javascript name of the marker
-  */
+   * @return string $js_name Javascript name of the marker
+   */
   public function getName()
   {
 
     return $this->js_name;
   }
+
   /**
-  * @return GMapMarkerImage $icon
-  */
+   * @return GMapMarkerImage $icon
+   */
   public function getIcon()
   {
-    return null;//return $this->icon;
+    return null; //return $this->icon;
   }
+
   /**
-  * @return GMapMarkerImage $shadow
-  */
+   * @return GMapMarkerImage $shadow
+   */
   public function getShadow()
   {
     return $this->shadow;
   }
+
   /**
    * @param array $options
    * @author fabriceb
@@ -109,8 +113,9 @@ class GMapMarker
    */
   public function setOptions($options)
   {
-    $this->options = array_merge($this->options,$options);
+    $this->options = array_merge($this->options, $options);
   }
+
   /**
    * @return array $options
    * @author fabriceb
@@ -121,7 +126,8 @@ class GMapMarker
 
     return $this->options;
   }
-    /**
+
+  /**
    *
    * @param string $name
    * @return mixed
@@ -160,6 +166,7 @@ class GMapMarker
 
     return $this->getOption('position');
   }
+
   /**
    * sets the coordinates object of the marker
    *
@@ -172,17 +179,19 @@ class GMapMarker
   {
     $this->setOption('position', $gmap_coord);
   }
+
   /**
-  * @return float $lat Javascript latitude
-  */
+   * @return float $lat Javascript latitude
+   */
   public function getLat()
   {
 
     return (float) $this->getGMapCoord()->getLatitude();
   }
+
   /**
-  * @return float $lng Javascript longitude
-  */
+   * @return float $lng Javascript longitude
+   */
   public function getLng()
   {
 
@@ -198,11 +207,11 @@ class GMapMarker
   public function optionsToJs()
   {
     $options_array = array();
-    foreach($this->options as $name => $value)
+    foreach ($this->options as $name => $value)
     {
       if (!is_null($value))
       {
-        switch($name)
+        switch ($name)
         {
           case 'position':
           case 'icon':
@@ -222,11 +231,11 @@ class GMapMarker
   }
 
   /**
-  * @param string $map_js_name
-  * @return string Javascript code to create the marker
-  * @author Fabrice Bernhard
-  * @since 2009-08-21
-  */
+   * @param string $map_js_name
+   * @return string Javascript code to create the marker
+   * @author Fabrice Bernhard
+   * @since 2009-08-21
+   */
   public function toJs($map_js_name = 'map')
   {
     $this->setOption('map', $map_js_name);
@@ -241,16 +250,16 @@ class GMapMarker
 
     $return = '';
 
-    if($this->info_window instanceof GMapInfoWindow)
+    if ($this->info_window instanceof GMapInfoWindow)
     {
       $this->addEvent(new GMapEvent(
-        'click',
-        $this->info_window->toJs()."\n      ".$this->info_window->getName().".open(".$map_js_name.", ".$this->getName().");"
+                      'click',
+                      $this->info_window->toJs()."\n      ".$this->info_window->getName().".open(".$map_js_name.", ".$this->getName().");"
       ));
     }
 
     $return .= $this->getName().' = new google.maps.Marker('.$this->optionsToJs().");\n";
-    foreach ($this->custom_properties as $attribute=>$value)
+    foreach ($this->custom_properties as $attribute => $value)
     {
       $return .= $this->getName().".".$attribute." = '".$value."';";
     }
@@ -269,8 +278,9 @@ class GMapMarker
    */
   public function addEvent($event)
   {
-    array_push($this->events,$event);
+    array_push($this->events, $event);
   }
+
   /**
    * Adds an onlick listener that open a html window with some text
    *
@@ -287,10 +297,10 @@ class GMapMarker
   }
 
   /**
-  * @return GMapInfoWindow
-  * @author fabriceb
-  * @since Oct 13, 2009
-  */
+   * @return GMapInfoWindow
+   * @author fabriceb
+   * @since Oct 13, 2009
+   */
   public function getHtmlInfoWindow()
   {
 
@@ -308,38 +318,41 @@ class GMapMarker
 
     return $this->getLat().','.$this->getLng();
   }
+
   public function setCustomProperties($custom_properties)
   {
-    $this->custom_properties=$custom_properties;
+    $this->custom_properties = $custom_properties;
   }
+
   public function getCustomProperties()
   {
 
     return $this->custom_properties;
   }
+
   /**
    * Sets a custom property to the generated javascript object
    *
    * @param string $name
    * @param string $value
    */
-  public function setCustomProperty($name,$value)
+  public function setCustomProperty($name, $value)
   {
     $this->custom_properties[$name] = $value;
   }
 
   /**
-  *
-  * @param GMapMarker[] $markers array of MArkers
-  * @return GMapCoord
-  * @author fabriceb
-  * @since 2009-05-02
-  *
-  **/
+   *
+   * @param GMapMarker[] $markers array of MArkers
+   * @return GMapCoord
+   * @author fabriceb
+   * @since 2009-05-02
+   *
+   * */
   public static function getMassCenterCoord($markers)
   {
     $coords = array();
-    foreach($markers as $marker)
+    foreach ($markers as $marker)
     {
       array_push($coords, $marker->getGMapCoord());
     }
@@ -348,13 +361,13 @@ class GMapMarker
   }
 
   /**
-  *
-  * @param GMapMarker[] $markers array of MArkers
-  * @return GMapCoord
-  * @author fabriceb
-  * @since 2009-05-02
-  *
-  **/
+   *
+   * @param GMapMarker[] $markers array of MArkers
+   * @return GMapCoord
+   * @author fabriceb
+   * @since 2009-05-02
+   *
+   * */
   public static function getCenterCoord($markers)
   {
     $bounds = GMapBounds::getBoundsContainingMarkers($markers);
@@ -374,5 +387,4 @@ class GMapMarker
 
     return $this->getGMapCoord()->isInsideBounds($gmap_bounds);
   }
-
 }

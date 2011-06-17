@@ -4,7 +4,6 @@
  * A class to communicate with Google Maps
  * @author Fabrice Bernhard
  */
-
 class GMapClient
 {
   /**
@@ -13,14 +12,12 @@ class GMapClient
    * @var sfCache
    */
   protected $cache = null;
-  
   /**
    * API key
    *
    * @var string
    */
   protected $api_key = null;
-
   /**
    * API key array
    *
@@ -29,7 +26,7 @@ class GMapClient
   protected $api_keys = null;
 
   const API_URL = 'http://maps.google.com/maps/geo?';
-  const JS_URL  = 'http://maps.google.com/maps/api/js?sensor=false';
+  const JS_URL = 'http://maps.google.com/maps/api/js?sensor=false';
 
   /**
    *
@@ -73,7 +70,7 @@ class GMapClient
     return $this->api_key;
   }
 
-   /**
+  /**
    * Guesses and sets the API Key
    * @author Fabrice
    *
@@ -127,7 +124,7 @@ class GMapClient
     return $this->api_keys;
   }
 
-   /**
+  /**
    * abstract the sfConfig layer to override it when outside of symfony
    * @param string
    * @author fabriceb
@@ -183,8 +180,6 @@ class GMapClient
 
     return $api_key;
   }
-
-
 
   /**
    * Connection to Google Maps' API web service

@@ -20,10 +20,9 @@ class lime_test
   const EPSILON = 0.0000000001;
 
   protected $test_nb = 0;
-  protected $output  = null;
+  protected $output = null;
   protected $results = array();
   protected $options = array();
-
   static protected $all_results = array();
 
   public function __construct($plan = null, $options = array())
@@ -35,17 +34,17 @@ class lime_test
     }
 
     $this->options = array_merge(array(
-      'force_colors'    => false,
-      'output'          => null,
-      'verbose'         => false,
+      'force_colors' => false,
+      'output' => null,
+      'verbose' => false,
       'error_reporting' => false,
-    ), $options);
+            ), $options);
 
     $this->output = $this->options['output'] ? $this->options['output'] : new lime_output($this->options['force_colors']);
 
     $caller = $this->find_caller(debug_backtrace());
     self::$all_results[] = array(
-      'file'  => $caller[0],
+      'file' => $caller[0],
       'tests' => array(),
       'stats' => array('plan' => $plan, 'total' => 0, 'failed' => array(), 'passed' => array(), 'skipped' => array(), 'errors' => array()),
     );
@@ -325,7 +324,6 @@ class lime_test
         $result = false;
       }
     }
-
     !$this->ok($result, $message);
 
     !$result and $this->set_last_test_errors($failed_messages);
@@ -508,11 +506,11 @@ class lime_test
   {
     $this->output->error($message, $file, $line, $traces);
 
-  	$this->results['stats']['errors'][] = array(
-  	  'message' => $message,
-  	  'file' => $file,
-  	  'line' => $line,
-  	);
+    $this->results['stats']['errors'][] = array(
+      'message' => $message,
+      'file' => $file,
+      'line' => $line,
+    );
   }
 
   protected function update_stats()
@@ -711,12 +709,12 @@ class lime_output
 
 class lime_output_color extends lime_output
 {
+
 }
 
 class lime_colorizer
 {
   static public $styles = array();
-
   protected $colors_supported = false;
 
   public function __construct($force_colors = false)
@@ -752,7 +750,7 @@ class lime_colorizer
       return $text;
     }
 
-    static $options    = array('bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8);
+    static $options = array('bold' => 1, 'underscore' => 4, 'blink' => 5, 'reverse' => 7, 'conceal' => 8);
     static $foreground = array('black' => 30, 'red' => 31, 'green' => 32, 'yellow' => 33, 'blue' => 34, 'magenta' => 35, 'cyan' => 36, 'white' => 37);
     static $background = array('black' => 40, 'red' => 41, 'green' => 42, 'yellow' => 43, 'blue' => 44, 'magenta' => 45, 'cyan' => 46, 'white' => 47);
 
@@ -784,8 +782,8 @@ class lime_harness extends lime_registration
 {
   public $options = array();
   public $php_cli = null;
-  public $stats   = array();
-  public $output  = null;
+  public $stats = array();
+  public $output = null;
 
   public function __construct($options = array())
   {
@@ -796,11 +794,11 @@ class lime_harness extends lime_registration
     }
 
     $this->options = array_merge(array(
-      'php_cli'      => null,
+      'php_cli' => null,
       'force_colors' => false,
-      'output'       => null,
-      'verbose'      => false,
-    ), $options);
+      'output' => null,
+      'verbose' => false,
+            ), $options);
 
     $this->php_cli = $this->find_php_cli($this->options['php_cli']);
     $this->output = $this->options['output'] ? $this->options['output'] : new lime_output($this->options['force_colors']);
@@ -877,10 +875,10 @@ class lime_harness extends lime_registration
     sort($this->files);
 
     $this->stats = array(
-      'files'        => array(),
+      'files' => array(),
       'failed_files' => array(),
       'failed_tests' => 0,
-      'total'        => 0,
+      'total' => 0,
     );
 
     foreach ($this->files as $file)
@@ -985,11 +983,11 @@ EOF
         $error_count = count($file_stats['errors']);
         for ($i = 0; $i < 3 && $i < $error_count; ++$i)
         {
-          $this->output->echoln('    - ' . $file_stats['errors'][$i]['message'], null, false);
+          $this->output->echoln('    - '.$file_stats['errors'][$i]['message'], null, false);
         }
         if ($error_count > 3)
         {
-          $this->output->echoln(sprintf('    ... and %s more', $error_count-3));
+          $this->output->echoln(sprintf('    ... and %s more', $error_count - 3));
         }
       }
     }
@@ -1017,14 +1015,8 @@ EOF
         }
       }
 
-      $this->output->red_bar(sprintf('Failed %d/%d test scripts, %.2f%% okay. %d/%d subtests failed, %.2f%% okay.',
-        $nb_failed_files = count($this->stats['failed_files']),
-        $nb_files = count($this->files),
-        ($nb_files - $nb_failed_files) * 100 / $nb_files,
-        $nb_failed_tests = $this->stats['failed_tests'],
-        $nb_tests = $this->stats['total'],
-        $nb_tests > 0 ? ($nb_tests - $nb_failed_tests) * 100 / $nb_tests : 0
-      ));
+      $this->output->red_bar(sprintf('Failed %d/%d test scripts, %.2f%% okay. %d/%d subtests failed, %.2f%% okay.', $nb_failed_files = count($this->stats['failed_files']), $nb_files = count($this->files), ($nb_files - $nb_failed_files) * 100 / $nb_files, $nb_failed_tests = $this->stats['failed_tests'], $nb_tests = $this->stats['total'], $nb_tests > 0 ? ($nb_tests - $nb_failed_tests) * 100 / $nb_tests : 0
+              ));
 
       if ($this->options['verbose'])
       {
@@ -1478,7 +1470,8 @@ class lime_registration
     $current_dir = opendir($directory);
     while ($entry = readdir($current_dir))
     {
-      if ($entry == '.' || $entry == '..') continue;
+      if ($entry == '.' || $entry == '..')
+        continue;
 
       if (is_dir($entry))
       {
