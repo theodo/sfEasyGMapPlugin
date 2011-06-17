@@ -26,6 +26,7 @@ $packagexml->addMaintainer('lead', 'fabriceb', 'Fabrice Bernhard', 'fabriceb@the
 $packagexml->addMaintainer('developer', 'vincentguillon', 'Vincent Guillon', 'vincentg@theodo.fr');
 $packagexml->addMaintainer('developer', 'laurentb', 'Laurent Bachelier', 'laurentb@theodo.fr');
 $packagexml->addMaintainer('developer', 'chok', 'Maxime Picaud', 'chokorp@gmail.com');
+$packagexml->addMaintainer('developer', 'benja-M-1', 'Benjamin Grandfond', 'benjaming@theodo.fr');
 $packagexml->addMaintainer('contributor', 'gionn', 'Giovanni Toraldo', 'gt@libersoft.it');
 $packagexml->addMaintainer('contributor', 'marekkalnik', 'Marek Kalnik', 'marekk@theodo.fr');
 $packagexml->addMaintainer('contributor', 'jlirochon', 'Julien Lirochon', 'julien@lirochon.net');
