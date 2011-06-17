@@ -43,76 +43,68 @@ if (!class_exists('RenderTag', true))
  * @author Fabrice Bernhard
  *
  */
-
 class GMap
 {
-
   protected $options = array(
-    // boolean  If true, do not clear the contents of the Map div.  
+    // boolean  If true, do not clear the contents of the Map div.
     'noClear ' => null,
-    // string Color used for the background of the Map div. This color will be visible when tiles have not yet loaded as a user pans.  
+    // string Color used for the background of the Map div. This color will be visible when tiles have not yet loaded as a user pans.
     'backgroundColor' => null,
-    // string The name or url of the cursor to display on a draggable object.  
+    // string The name or url of the cursor to display on a draggable object.
     'draggableCursor' => null,
-    // string The name or url of the cursor to display when an object is dragging.  
+    // string The name or url of the cursor to display when an object is dragging.
     'draggingCursor' => null,
-    // boolean If false, prevents the map from being dragged. Dragging is enabled by default.  
+    // boolean If false, prevents the map from being dragged. Dragging is enabled by default.
     'draggable' => null,
     // boolean If true, enables scrollwheel zooming on the map. The scrollwheel is enabled by default.
     'scrollwheel' => null,
-    // boolean If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are enabled by default.  
+    // boolean If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are enabled by default.
     'keyboardShortcuts' => null,
-    // LatLng The initial Map center. Required.  
+    // LatLng The initial Map center. Required.
     'center' => null,
-    // number The initial Map zoom level. Required.  
+    // number The initial Map zoom level. Required.
     'zoom' => null,
-    // string The initial Map mapTypeId. Required.  
+    // string The initial Map mapTypeId. Required.
     'mapTypeId' => 'google.maps.MapTypeId.ROADMAP',
-    // boolean Enables/disables all default UI. May be overridden individually.  
+    // boolean Enables/disables all default UI. May be overridden individually.
     'disableDefaultUI' => null,
-    // boolean The initial enabled/disabled state of the Map type control.  
+    // boolean The initial enabled/disabled state of the Map type control.
     'mapTypeControl' => null,
-    // MapTypeControl options The initial display options for the Map type control.  
+    // MapTypeControl options The initial display options for the Map type control.
     'mapTypeControlOptions' => null,
-    // boolean The initial enabled/disabled state of the scale control.  
+    // boolean The initial enabled/disabled state of the scale control.
     'scaleControl' => null,
-    // ScaleControl options The initial display options for the scale control.  
+    // ScaleControl options The initial display options for the scale control.
     'scaleControlOptions' => null,
-    // boolean The initial enabled/disabled state of the navigation control.  
+    // boolean The initial enabled/disabled state of the navigation control.
     'navigationControl' => null,
-    // NavigationControl options The initial display options for the navigation control.  
+    // NavigationControl options The initial display options for the navigation control.
     'navigationControlOptions' => null
   );
-  
   protected $parameters = array(
-      'js_name' => 'map',
-      'onload_method' => 'js',
-      'api_keys' => null
+    'js_name' => 'map',
+    'onload_method' => 'js',
+    'api_keys' => null
   );
-
   // id of the Google Map div container
   protected $container_attributes = array(
-      'id' =>'map'
+    'id' => 'map'
   );
-  
   // style of the container
-  protected $container_style=array(
-    'width'=>'512px',
-    'height'=>'512px'
+  protected $container_style = array(
+    'width' => '512px',
+    'height' => '512px'
   );
-
   // objects linked to the map
-  protected $icons=array();
-  protected $markers=array();
-  protected $events=array();
-  protected $directions=array();
-
+  protected $icons = array();
+  protected $markers = array();
+  protected $events = array();
+  protected $directions = array();
   // customise the javascript generated
-  protected $after_init_js=array();
-  protected $global_variables=array();
-
+  protected $after_init_js = array();
+  protected $global_variables = array();
   // the interface to the Google Maps API web service
-  protected $gMapClient = false;  
+  protected $gMapClient = false;
 
   /**
    * Constructs a Google Map PHP object
@@ -126,19 +118,20 @@ class GMap
     $this->setContainerAttributes($container_attributes);
     $this->setContainerStyles($container_style);
     $this->setParameters($parameters);
-    
-    // delcare the Google Map Javascript object as global
-    $this->addGlobalVariable($this->getJsName(),'null');
 
+    // delcare the Google Map Javascript object as global
+    $this->addGlobalVariable($this->getJsName(), 'null');
   }
+
   /**
    * Defines the style of the Google Map div
    * @param array $style Associative array with the style of the div container
    */
   public function setContainerStyles($container_style)
   {
-    $this->container_style = array_merge($this->container_style,$container_style);
+    $this->container_style = array_merge($this->container_style, $container_style);
   }
+
   /**
    * Gets the style Array of the div container
    */
@@ -147,6 +140,7 @@ class GMap
 
     return $this->container_style;
   }
+
   /**
    * Defines the attributes of the Google Map div
    * @param array $container_attributes Associative array with the attributes of the div container
@@ -155,8 +149,9 @@ class GMap
    */
   public function setContainerAttributes($container_attributes)
   {
-    $this->container_attributes = array_merge($this->container_attributes,$container_attributes);
+    $this->container_attributes = array_merge($this->container_attributes, $container_attributes);
   }
+
   /**
    * Gets the attributes array of the div container
    * @author fabriceb
@@ -167,6 +162,7 @@ class GMap
 
     return $this->container_attributes;
   }
+
   /**
    * @param array $options
    * @author fabriceb
@@ -174,8 +170,9 @@ class GMap
    */
   public function setOptions($options)
   {
-    $this->options = array_merge($this->options,$options);
+    $this->options = array_merge($this->options, $options);
   }
+
   /**
    * @return array $options
    * @author fabriceb
@@ -186,6 +183,7 @@ class GMap
 
     return $this->options;
   }
+
   /**
    * @param array $parameters
    * @author fabriceb
@@ -193,8 +191,9 @@ class GMap
    */
   public function setParameters($parameters)
   {
-    $this->parameters = array_merge($this->parameters,$parameters);
+    $this->parameters = array_merge($this->parameters, $parameters);
   }
+
   /**
    * @return array $parameters
    * @author fabriceb
@@ -205,6 +204,7 @@ class GMap
 
     return $this->parameters;
   }
+
   /**
    * @param string $name
    * @param mixed $value
@@ -215,6 +215,7 @@ class GMap
   {
     $this->parameters[$name] = $value;
   }
+
   /**
    * @return mixed $value
    * @author fabriceb
@@ -224,6 +225,7 @@ class GMap
   {
     return $this->parameters[$name];
   }
+
   /**
    * gets an instance of the interface to the Google Map web geocoding service
    *
@@ -252,7 +254,6 @@ class GMap
   {
     $this->gMapClient = $gMapClient;
   }
-
 
   /**
    * Geocodes an address
@@ -305,14 +306,15 @@ class GMap
    * @param string $style_tag name of css tag
    * @param string $style_value value of css tag
    */
-  public function setContainerStyle($style_tag,$style_value)
+  public function setContainerStyle($style_tag, $style_value)
   {
-    $this->container_style[$style_tag]=$style_value;
+    $this->container_style[$style_tag] = $style_value;
   }
   /*
    * Gets one style of the Google Map div
    * @param string $style_tag name of css tag
    */
+
   public function getContainerStyle($style_tag)
   {
 
@@ -331,13 +333,13 @@ class GMap
    * @return string $container
    * @author Fabrice Bernhard
    */
-  public function getContainer($styles=array(),$attributes=array())
+  public function getContainer($styles=array(), $attributes=array())
   {
-    $this->container_style = array_merge($this->container_style,$styles);
-    $this->container_attributes = array_merge($this->container_attributes,$attributes);
+    $this->container_style = array_merge($this->container_style, $styles);
+    $this->container_attributes = array_merge($this->container_attributes, $attributes);
 
-    $style="";
-    foreach ($this->container_style as $tag=>$val)
+    $style = "";
+    foreach ($this->container_style as $tag => $val)
     {
       $style.=$tag.":".$val.";";
     }
@@ -345,11 +347,11 @@ class GMap
     $attributes = $this->container_attributes;
     $attributes['style'] = $style;
 
-    return RenderTag::renderContent('div',null,$attributes);
+    return RenderTag::renderContent('div', null, $attributes);
   }
-  
+
   /**
-   * 
+   *
    * @return string
    * @author fabriceb
    * @since 2009-08-20
@@ -357,11 +359,11 @@ class GMap
   public function optionsToJs()
   {
     $options_array = array();
-    foreach($this->options as $name => $value)
+    foreach ($this->options as $name => $value)
     {
       if (!is_null($value))
       {
-        switch($name)
+        switch ($name)
         {
           case 'navigationControlOptions':
           case 'scaleControlOptions':
@@ -379,12 +381,12 @@ class GMap
     }
     $tab = '  ';
     $separator = "\n".$tab.$tab;
-    
+
     return '{'.$separator.$tab.implode(','.$separator.$tab, $options_array).$separator.'}';
   }
-  
+
   /**
-   * 
+   *
    * @return unknown_type
    * @author fabriceb
    * @since Oct 8, 2009
@@ -431,7 +433,7 @@ class GMap
     }
 
 
-    $return ='';
+    $return = '';
     $init_events = array();
     $init_events[] = 'var mapOptions = '.$this->optionsToJs().';';
     $init_events[] = $this->getJsName().' = new google.maps.Map(document.getElementById("'.$this->getContainerId().'"), mapOptions);';
@@ -446,7 +448,7 @@ class GMap
       $init_events[] = $after_init;
     }
 
-    foreach($this->global_variables as $name=>$value)
+    foreach ($this->global_variables as $name => $value)
     {
       $return .= '
   var '.$name.' = '.$value.';';
@@ -455,7 +457,7 @@ class GMap
   //  Call this function when the page has been loaded
   function initialize()
   {';
-    foreach($init_events as $init_event)
+    foreach ($init_events as $init_event)
     {
       if ($init_event)
       {
@@ -510,8 +512,9 @@ class GMap
    */
   public function addMarker($marker)
   {
-    array_push($this->markers,$marker);
+    array_push($this->markers, $marker);
   }
+
   /**
    * @param GMapMarker[] $markers marker to be put on the map
    */
@@ -519,22 +522,23 @@ class GMap
   {
     $this->markers = $markers;
   }
+
   /**
    * @param GMapEvent $event an event to be attached to the map
    */
   public function addEvent($event)
   {
-    array_push($this->events,$event);
+    array_push($this->events, $event);
   }
 
   /**
    * checks which markers have special icons and binds these icons to the map
-   * 
+   *
    * @return void
    */
   public function loadMarkerIcons()
   {
-    foreach($this->markers as $marker)
+    foreach ($this->markers as $marker)
     {
       if ($marker->getIcon() instanceof GMapMarkerImage)
       {
@@ -542,6 +546,7 @@ class GMap
       }
     }
   }
+
   /**
    * Returns the javascript string which defines the icons
    * @return string
@@ -557,6 +562,7 @@ class GMap
 
     return $return;
   }
+
   /**
    * Returns the javascript string which defines the markers
    * @return string
@@ -572,11 +578,11 @@ class GMap
 
     return $return;
   }
-
   /*
    * Returns the javascript string which defines events linked to the map
    * @return string
    */
+
   public function getEventsJs()
   {
     $return = '';
@@ -585,14 +591,14 @@ class GMap
       $return .= $event->getEventJs($this->getJsName());
       $return .= "\n";
     }
-    
+
     return $return;
   }
-
   /*
    * Gets the Code to execute after Js initialization
    * @return string $after_init_js
    */
+
   public function getAfterInitJs()
   {
     return $this->after_init_js;
@@ -601,18 +607,19 @@ class GMap
    * Sets the Code to execute after Js initialization
    * @param string $after_init_js Code to execute
    */
+
   public function addAfterInitJs($after_init_js)
   {
-    array_push($this->after_init_js,$after_init_js);
+    array_push($this->after_init_js, $after_init_js);
   }
 
   public function addGlobalVariable($name, $value='null')
   {
     $this->global_variables[$name] = $value;
   }
-  
+
   /**
-   * 
+   *
    * @param string $name
    * @return mixed
    * @author fabriceb
@@ -620,12 +627,12 @@ class GMap
    */
   public function getOption($name)
   {
-    
+
     return $this->options[$name];
   }
-  
+
   /**
-   * 
+   *
    * @param string $name
    * @param mixed $value
    * @return void
@@ -636,9 +643,9 @@ class GMap
   {
     $this->options[$name] = $value;
   }
-  
+
   /**
-   * 
+   *
    * @return integer $zoom
    */
   public function getZoom()
@@ -646,17 +653,17 @@ class GMap
 
     return $this->getOption('zoom');
   }
-  
+
   /**
-   * 
+   *
    * @param integer $zoom
    * @return void
    */
   public function setZoom($zoom)
   {
-    $this->setOption('zoom',$zoom);
+    $this->setOption('zoom', $zoom);
   }
-  
+
   /**
    * Sets the center of the map at the beginning
    *
@@ -664,11 +671,11 @@ class GMap
    * @param float $lng
    * @since 2009-08-20 fabriceb now everything is in the options array
    */
-  public function setCenter($lat=null,$lng=null)
+  public function setCenter($lat=null, $lng=null)
   {
-    $this->setOption('center',new GMapCoord($lat, $lng));
+    $this->setOption('center', new GMapCoord($lat, $lng));
   }
-  
+
   /**
    *
    * @return GMapCoord
@@ -681,7 +688,8 @@ class GMap
 
     return $this->getOption('center');
   }
-   /**
+
+  /**
    *
    * @return float
    * @author fabriceb
@@ -692,7 +700,8 @@ class GMap
 
     return $this->getCenterCoord()->getLatitude();
   }
-    /**
+
+  /**
    *
    * @return float
    * @author fabriceb
@@ -703,7 +712,6 @@ class GMap
     return $this->getCenterCoord()->getLongitude();
   }
 
-
   /**
    * gets the width of the map in pixels according to container style
    * @return integer
@@ -713,13 +721,13 @@ class GMap
   public function getWidth()
   {
     // percentage or 0px
-    if (substr($this->getContainerStyle('width'),-2,2) != 'px')
+    if (substr($this->getContainerStyle('width'), -2, 2) != 'px')
     {
-      
+
       return false;
     }
-    
-    return intval(substr($this->getContainerStyle('width'),0,-2));
+
+    return intval(substr($this->getContainerStyle('width'), 0, -2));
   }
 
   /**
@@ -731,13 +739,13 @@ class GMap
   public function getHeight()
   {
     // percentage or 0px
-    if (substr($this->getContainerStyle('height'),-2,2) != 'px')
+    if (substr($this->getContainerStyle('height'), -2, 2) != 'px')
     {
-      
+
       return false;
     }
 
-    return intval(substr($this->getContainerStyle('height'),0,-2));
+    return intval(substr($this->getContainerStyle('height'), 0, -2));
   }
 
   /**
@@ -769,9 +777,8 @@ class GMap
     {
       $height = $height.'px';
     }
-    $this->setContainerStyle('height',$height);
+    $this->setContainerStyle('height', $height);
   }
-
 
   /**
    * Returns the URL of a static version of the map (when JavaScript is not active)
@@ -785,20 +792,20 @@ class GMap
   {
     $params = array(
       'maptype' => $maptype,
-      'zoom'    => $this->getZoom(),
-      'key'     => $this->guessAPIKey(),
-      'center'  => $this->getCenterLat().','.$this->getCenterLng(),
-      'size'    => $this->getWidth().'x'.$this->getHeight(),
-      'hl'      => $hl,
+      'zoom' => $this->getZoom(),
+      'key' => $this->guessAPIKey(),
+      'center' => $this->getCenterLat().','.$this->getCenterLng(),
+      'size' => $this->getWidth().'x'.$this->getHeight(),
+      'hl' => $hl,
       'markers' => $this->getMarkersStatic()
     );
     $pairs = array();
-    foreach($params as $key => $value)
+    foreach ($params as $key => $value)
     {
       $pairs[] = $key.'='.$value;
     }
 
-    return 'http://maps.google.com/staticmap?'.implode('&',$pairs);
+    return 'http://maps.google.com/staticmap?'.implode('&', $pairs);
   }
 
   /**
@@ -814,7 +821,7 @@ class GMap
       $markers_code[] = $marker->getMarkerStatic();
     }
 
-    return implode('|',$markers_code);
+    return implode('|', $markers_code);
   }
 
   /**
@@ -856,8 +863,8 @@ class GMap
   public function getMarkersFittingZoom($margin = 0, $default_zoom = 14)
   {
     $bounds = GMapBounds::getBoundsContainingMarkers($this->markers, $margin);
-    
-    return $bounds->getZoom(min($this->getWidth(),$this->getHeight()), $default_zoom);
+
+    return $bounds->getZoom(min($this->getWidth(), $this->getHeight()), $default_zoom);
   }
 
   /**
@@ -873,7 +880,7 @@ class GMap
     $this->setZoom($this->getMarkersFittingZoom($margin, $default_zoom));
   }
 
-   /**
+  /**
    * sets the zoom and center of the map to fit the markers (uses mercator projection to guess the size in pixels of the bounds)
    *
    * @param integer $margin a scaling factor around the smallest bound
@@ -895,7 +902,7 @@ class GMap
   public function getBoundsFromCenterAndZoom()
   {
 
-    return GMapBounds::getBoundsFromCenterAndZoom($this->getCenterCoord(),$this->getZoom(),$this->getWidth(),$this->getHeight());
+    return GMapBounds::getBoundsFromCenterAndZoom($this->getCenterCoord(), $this->getZoom(), $this->getWidth(), $this->getHeight());
   }
 
   /**
@@ -910,7 +917,7 @@ class GMap
 
     return GMapClient::guessAPIKey($api_keys);
   }
-  
+
   /**
    * $directions getter
    *
@@ -920,10 +927,10 @@ class GMap
    */
   public function getDirections()
   {
-    
+
     return $this->directions;
   }
-  
+
   /**
    * $directions setter
    *
@@ -935,7 +942,7 @@ class GMap
   {
     $this->directions = $directions;
   }
-  
+
   /**
    * Add direction to list ($this->directions)
    *
@@ -949,10 +956,10 @@ class GMap
     {
       throw new sfException('The direction must be an instance of GMapDirection !');
     }
-    
+
     array_push($this->directions, $direction);
   }
-  
+
   /**
    * Get the directions javascript code
    *
@@ -963,7 +970,7 @@ class GMap
   public function getDirectionsJs()
   {
     $js_code = '';
-    
+
     foreach ($this->directions as $direction)
     {
       $js_code .= $direction->toJs($this->getJsName());

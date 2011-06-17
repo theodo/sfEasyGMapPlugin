@@ -7,13 +7,13 @@
  * @param array style options of the container
  * @author fabriceb
  */
-function include_map($gMap,$options=array())
+function include_map($gMap, $options=array())
 {
   if ($gMap instanceof sfOutputEscaper)
   {
     $gMap = $gMap->getRawValue();
   }
-  
+
   echo $gMap->getContainer($options);
 }
 
@@ -33,8 +33,8 @@ function include_map_javascript($gMap)
   ?>
   <script type='text/javascript'>
     //<![CDATA[
-      <?php echo $gMap->getJavascript() ?>
-    //]]>
+  <?php echo $gMap->getJavascript() ?>
+        //]]>
   </script>
   <?php
 }
@@ -56,10 +56,10 @@ function include_google_map_javascript_file($gMap)
   <?php
 }
 
-
 function include_search_location_form()
 {
   sfContext::getInstance()->getResponse()->addJavascript('/sfEasyGMapPlugin/js/sfEasyGMapPlugin.js');
+
   ?>
   <form onsubmit="geocode_and_show(document.getElementById('search_location_input').value);return false;">
     <input type="text" id="search_location_input" />
@@ -81,12 +81,12 @@ function include_search_location_form()
  *
  * @param GMapAddressGuesser $addressGuesser
  * @param Array override default options
- * @author johannes 
+ * @author johannes
  */
 function include_address_guesser(GMapAddressGuesser $addressGuesser, $options = array())
 {
   if ($addressGuesser instanceof sfOutputEscaper)
-    $addressGuesser = $addressGuesser->getRawValue(); 
+    $addressGuesser = $addressGuesser->getRawValue();
   if (!($addressGuesser instanceof GMapAddressGuesser))
     throw new InvalidArgumentException('addressGuesser must be an instance of GMapAddressGuesser.');
   if (!is_array($options))

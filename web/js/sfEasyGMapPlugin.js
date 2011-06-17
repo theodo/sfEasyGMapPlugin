@@ -14,7 +14,7 @@ var set_location = function(response, status)
     alert('Oops... adress not recognized by Google !');
     return false;
   }
-  
+
   var zoom=15;
   //console.log(response[0].geometry.location_type);
   switch(response[0].geometry.location_type)
@@ -33,14 +33,14 @@ var set_location = function(response, status)
     case google.maps.GeocoderLocationType.ROOFTOP:
       zoom=14;
       break;
-    default:      
+    default:
       zoom=14;
       break;
   }
-  
+
   point = response[0].geometry.location;
   //console.log(point);
-  
+
   if (typeof marker == 'undefined')
   {
     marker = new google.maps.Marker({'map': map, draggable: true});
@@ -49,7 +49,7 @@ var set_location = function(response, status)
   marker.google_position = response[0].formatted_address;
   marker.gps_precision = zoom;
   //console.log('position settée ' + marker.google_position);
-  
+
   marker.set_position(point);
   map.set_zoom(zoom);
   map.set_center(point);

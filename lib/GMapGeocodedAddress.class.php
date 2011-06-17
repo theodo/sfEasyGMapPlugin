@@ -4,20 +4,18 @@
  * A class to geocode addresses
  * @author Fabrice Bernhard
  */
-
 class GMapGeocodedAddress
 {
-  protected $raw_address           = null;
-  protected $lat                   = null;
-  protected $lng                   = null;
-  protected $accuracy              = null;
-  protected $geocoded_city         = null;
+  protected $raw_address = null;
+  protected $lat = null;
+  protected $lng = null;
+  protected $accuracy = null;
+  protected $geocoded_city = null;
   protected $geocoded_country_code = null;
-  protected $geocoded_country      = null;
-  protected $geocoded_address      = null;
-  protected $geocoded_street       = null;
-  protected $geocoded_postal_code  = null;
-
+  protected $geocoded_country = null;
+  protected $geocoded_address = null;
+  protected $geocoded_street = null;
+  protected $geocoded_postal_code = null;
 
   /**
    * Constructs a gMapGeocodedAddress object from a given $raw_address String
@@ -42,8 +40,6 @@ class GMapGeocodedAddress
     return $this->raw_address;
   }
 
-
-
   /**
    * Geocodes the address using the Google Maps CSV webservice
    *
@@ -54,14 +50,14 @@ class GMapGeocodedAddress
   public function geocode($gmap_client)
   {
     $raw_data = $gmap_client->getGeocodingInfo($this->getRawAddress());
-    $geocoded_array = explode(',',$raw_data);
-    if ($geocoded_array[0]!=200)
+    $geocoded_array = explode(',', $raw_data);
+    if ($geocoded_array[0] != 200)
     {
 
       return false;
     }
-    $this->lat      = $geocoded_array[2];
-    $this->lng      = $geocoded_array[3];
+    $this->lat = $geocoded_array[2];
+    $this->lng = $geocoded_array[3];
     $this->accuracy = $geocoded_array[1];
 
     return $this->accuracy;
@@ -85,14 +81,14 @@ class GMapGeocodedAddress
       return false;
     }
 
-    $this->raw_address           = $geocoded_array['Placemark'][0]['address'];
-    $this->accuracy              = $geocoded_array['Placemark'][0]['AddressDetails']['Accuracy'];
-    $this->geocoded_city         = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName'];
+    $this->raw_address = $geocoded_array['Placemark'][0]['address'];
+    $this->accuracy = $geocoded_array['Placemark'][0]['AddressDetails']['Accuracy'];
+    $this->geocoded_city = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName'];
     $this->geocoded_country_code = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['CountryNameCode'];
-    $this->geocoded_country      = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['CountryName'];
-    $this->geocoded_address      = $geocoded_array['Placemark'][0]['address'];
-    $this->geocoded_street       = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['Thoroughfare']['ThoroughfareName'];
-    $this->geocoded_postal_code  = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['PostalCode']['PostalCodeNumber'];
+    $this->geocoded_country = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['CountryName'];
+    $this->geocoded_address = $geocoded_array['Placemark'][0]['address'];
+    $this->geocoded_street = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['Thoroughfare']['ThoroughfareName'];
+    $this->geocoded_postal_code = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['PostalCode']['PostalCodeNumber'];
 
     return $this->accuracy;
   }
@@ -106,7 +102,7 @@ class GMapGeocodedAddress
    */
   public function geocodeXml($gmap_client)
   {
-    $raw_data = utf8_encode($gmap_client->getGeocodingInfo($this->getRawAddress(),'xml'));
+    $raw_data = utf8_encode($gmap_client->getGeocodingInfo($this->getRawAddress(), 'xml'));
 
     $p = xml_parser_create('UTF-8');
     xml_parse_into_struct($p, $raw_data, $vals, $index);
@@ -142,7 +138,6 @@ class GMapGeocodedAddress
 
     return $this->accuracy;
   }
-
 
   /**
    * Returns the latitude
@@ -242,7 +237,6 @@ class GMapGeocodedAddress
     $this->raw_address = $raw;
   }
 
-
   /**
    * @param float $lat latitude to set
    */
@@ -314,6 +308,4 @@ class GMapGeocodedAddress
   {
     $this->geocoded_postal_code = $val;
   }
-
-
 }

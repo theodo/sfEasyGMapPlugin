@@ -7,7 +7,7 @@
  * @since 2009-10-30 17:18:26
  */
 class GMapDirection
-{  
+{
   protected $origin;
   protected $destination;
   protected $travel_mode;
@@ -15,31 +15,25 @@ class GMapDirection
   protected $options = array(
     // Whether or not trip alternatives should be provided.
     'provideTripAlternatives' => false,
-    
     // Region code used as a bias for geocoding requests.
-    'region'     => null,
-    
+    'region' => null,
     /**
      * Preferred unit system to use when displaying distance.
      * Defaults to the unit system used in the country of origin [IMPERIAL or METRIC]
      */
     'unitSystem' => null,
-    
     // Array of intermediate waypoints. Directions will be calculated from the origin to the destination by way of each waypoint in this array.
-    'waypoints'  => array(),
-    
+    'waypoints' => array(),
     // Travel mode [DRIVING, WALKING]
     'travelMode' => 'DRIVING',
-    
     // Node
-    'panel'      => null,
+    'panel' => null,
   );
-  
   protected $prefix_list = array(
     'unitSystem' => 'google.maps.DirectionsUnitSystem.',
     'travelMode' => 'google.maps.DirectionsTravelMode.'
   );
-  
+
   /**
    * Construct GMapDirection object
    *
@@ -52,16 +46,16 @@ class GMapDirection
    */
   public function __construct($origin = null, $destination = null, $js_name = 'gmap_direction', $options = array())
   {
-    $default_options  = array(
+    $default_options = array(
       'travelMode' => 'DRIVING',
     );
-    
+
     $this->setOrigin($origin);
     $this->setDestination($destination);
     $this->setOptions(array_merge($default_options, $options));
     $this->setJsName($js_name);
   }
-  
+
   /**
    * Origin getter
    *
@@ -71,10 +65,10 @@ class GMapDirection
    */
   public function getOrigin()
   {
-    
+
     return $this->origin;
   }
-  
+
   /**
    * Destination getter
    *
@@ -84,27 +78,27 @@ class GMapDirection
    */
   public function getDestination()
   {
-    
+
     return $this->destination;
   }
-  
+
   /**
    * Options getter
    *
-   * @return array $this->options 
+   * @return array $this->options
    * @author Vincent Guillon <vincentg@theodo.fr>
    * @since 2009-11-13 15:38:46
    */
   public function getOptions()
   {
-    
+
     return $this->options;
   }
-  
+
   /**
    * Retrieve option from options list by index
    *
-   * @param string $name 
+   * @param string $name
    * @return $this->options[$index]
    * @author Vincent Guillon <vincentg@theodo.fr>
    * @since 2009-11-13 15:52:55
@@ -115,10 +109,10 @@ class GMapDirection
     {
       throw new sfException('$name can\'t be "null" !');
     }
-    
+
     return $this->options[$name];
   }
-  
+
   /**
    * js_name getter
    *
@@ -128,10 +122,10 @@ class GMapDirection
    */
   public function getJsName()
   {
-    
+
     return $this->js_name;
   }
-  
+
   /**
    * Origin setter
    *
@@ -145,10 +139,10 @@ class GMapDirection
     {
       throw new sfException('The origin must be an instance of GMapCoord !');
     }
-    
+
     $this->origin = $origin;
   }
-  
+
   /**
    * Destination setter
    *
@@ -162,10 +156,10 @@ class GMapDirection
     {
       throw new sfException('The destination must be an instance of GMapCoord !');
     }
-    
+
     $this->destination = $destination;
   }
-  
+
   /**
    * Options setter
    *
@@ -177,7 +171,7 @@ class GMapDirection
   {
     $this->options = $options;
   }
-  
+
   /**
    * Option setter
    *
@@ -192,10 +186,10 @@ class GMapDirection
     {
       throw new sfException('$name can\'t be "null" !');
     }
-    
+
     $this->options[$name] = $value;
   }
-  
+
   /**
    * js_name setter
    *
@@ -207,7 +201,7 @@ class GMapDirection
   {
     $this->js_name = $js_name;
   }
-  
+
   /**
    * Return refix by option
    *
@@ -218,10 +212,10 @@ class GMapDirection
    */
   public function getOptionPrefix($option = '')
   {
-    
+
     return isset($this->prefix_list[$option]) ? $this->prefix_list[$option] : '';
   }
-  
+
   /**
    * Generate js code for direction
    *
@@ -234,31 +228,31 @@ class GMapDirection
   {
     $options = $this->getOptions();
     $js_name = $this->getJsName();
-    
+
     // Construct js code
     $js_code = '';
     $js_code .= 'var '.$js_name.'Renderer = new google.maps.DirectionsRenderer();'."\n";
     $js_code .= 'var '.$js_name.'Service = new google.maps.DirectionsService();'."\n";
     $js_code .= $js_name.'Renderer.setMap('.$map_js_name.');'."\n";
-    
+
     // Display direction panel
     if (isset($options['panel']) && $options['panel'])
     {
-       $js_code .= $js_name.'Renderer.setPanel('.$options['panel'].');'."\n\n";
-       unset($options['panel']);
+      $js_code .= $js_name.'Renderer.setPanel('.$options['panel'].');'."\n\n";
+      unset($options['panel']);
     }
-    
+
     $js_code .= 'var '.$js_name.'Request = {'."\n";
     $js_code .= '  origin: '.$this->getOrigin()->toJs().','."\n";
-    $js_code .= '  destination: '.$this->getDestination()->toJs().','."\n";    
-    
+    $js_code .= '  destination: '.$this->getDestination()->toJs().','."\n";
+
     // Add options
     foreach ($options as $name => $option)
     {
       if ($name == 'waypoints' && count($option) > 0)
       {
         $js_code .= '  '.$name.' : ['."\n";
-        
+
         foreach ($option as $waypoint)
         {
           if ($waypoint instanceof GMapDirectionWaypoint)
@@ -266,7 +260,7 @@ class GMapDirection
             $js_code .= '    '.$waypoint->optionsToJs().",\n";
           }
         }
-                
+
         $js_code .= '  ],'."\n";
       }
       else
@@ -274,9 +268,9 @@ class GMapDirection
         $js_code .= '  '.$name.' : '.$this->getOptionPrefix($name).$option.",\n";
       }
     }
-    
+
     $js_code .= '};'."\n";
-    
+
     $js_code .= $js_name.'Service.route('.$js_name.'Request, function(response, status)'."\n";
     $js_code .= '{'."\n";
     $js_code .= '  if (status == google.maps.DirectionsStatus.OK)'."\n";
@@ -284,7 +278,7 @@ class GMapDirection
     $js_code .= '    '.$js_name.'Renderer.setDirections(response);'."\n";
     $js_code .= '  }'."\n";
     $js_code .= '});'."\n";
-    
+
     return $js_code;
   }
 }

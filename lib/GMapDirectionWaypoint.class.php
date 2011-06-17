@@ -7,10 +7,10 @@
  * @since 2009-11-20 16:14:23
  */
 class GMapDirectionWaypoint
-{  
+{
   protected $location;
   protected $stopover;
-  
+
   /**
    * Construct GMapDirection object
    *
@@ -26,7 +26,7 @@ class GMapDirectionWaypoint
     $this->setLocation($location);
     $this->setStopOver($stopover);
   }
-  
+
   /**
    * $location getter
    *
@@ -36,10 +36,10 @@ class GMapDirectionWaypoint
    */
   public function getLocation()
   {
-    
+
     return $this->location;
   }
-  
+
   /**
    * $stopover getter
    *
@@ -49,10 +49,10 @@ class GMapDirectionWaypoint
    */
   public function getStopOver()
   {
-    
+
     return $this->stopover;
   }
-  
+
   /**
    * $location setter
    *
@@ -66,10 +66,10 @@ class GMapDirectionWaypoint
     {
       throw new sfException('The destination must be an instance of GMapCoord !');
     }
-    
+
     $this->location = $location;
   }
-  
+
   /**
    * $stopover setter
    *
@@ -81,7 +81,7 @@ class GMapDirectionWaypoint
   {
     $this->stopover = $stopover;
   }
-  
+
   /**
    * Generate javascript code fo GMapDirection waypoints option
    *
@@ -92,7 +92,7 @@ class GMapDirectionWaypoint
   public function optionsToJs()
   {
     $stopover = $this->getStopOver() ? 'true' : 'false';
-    
+
     return '{location : '.$this->getLocation()->toJs().', stopover: '.$stopover.'}';
   }
 }
