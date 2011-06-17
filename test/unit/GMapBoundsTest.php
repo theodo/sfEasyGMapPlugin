@@ -5,11 +5,7 @@
  * @author fabriceb
  * @since Feb 16, 2009 fabriceb
  */
-include dirname(__FILE__).'/../bootstrap/unit.php';
-//$app='frontend';
-//include(dirname(__FILE__).'/../bootstrap/functional.php');
-
-
+require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
 $lat = 48.856536;
 $lng = 2.339307;
@@ -23,7 +19,10 @@ $pix = GMapCoord::fromLngToPix($lng, $zoom);
 $sw_lng = GMapCoord::fromPixToLng($pix - 150, $zoom);
 $ne_lng = GMapCoord::fromPixToLng($pix + 150, $zoom);
 
-$bounds = new GMapBounds(new GMapCoord($sw_lat, $sw_lng), new GMapCoord($ne_lat, $ne_lng));
+$bounds = new GMapBounds(
+  new GMapCoord($sw_lat, $sw_lng),
+  new GMapCoord($ne_lat, $ne_lng)
+);
 
 $t = new lime_test(15, new lime_output_color());
 
@@ -58,9 +57,9 @@ $t->like($bounds_twice_france->__toString(), '/\(\(37\.900622725\d*, -11\.425781
 $t->diag('->getBoundsContainingAllBounds Test');
 $bounds = GMapBounds::createFromString('((48.7887996681, 2.23631017383), (48.9243326339, 2.44230382617))');
 $big_bounds = GMapBounds::getBoundsContainingAllBounds(array($bounds));
-$t->is($big_bounds->__toString(), $bounds->__toString(), 'le bounds qui englobe un bounds cest le meme');
+$t->is($big_bounds->__toString(), $bounds->__toString(), 'The bounds surrounding another bounds is the same');
 $big_bounds = GMapBounds::getBoundsContainingAllBounds(array($bounds, $bounds_france));
-$t->is($big_bounds->__toString(), $bounds_france->__toString(), 'le bounds qui contient paris et la france cest la france');
+$t->is($big_bounds->__toString(), $bounds_france->__toString(), 'The bounds containing the France bounds and Paris bounds is France');
 
 $t->diag('->getBoundsContainingCoords Test');
 $coord_1 = new GMapCoord(48.7887996681, 2.23631017383);
@@ -86,9 +85,7 @@ $t->diag('->getBoundsFromCenter Test');
 $center_coord = new GMapCoord(48.856536, 2.339307);
 $zoom = 11;
 $bounds = GMapBounds::getBoundsFromCenterAndZoom($center_coord, $zoom, 300, 300);
-$t->like($bounds->__toString(), '/\(\(48\.788723704\d*, 2\.2363101738\d*\), \(48\.924256558\d*, 2\.4423038261\d*\)\)/', 'On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
+$t->like($bounds->__toString(), '/\(\(48\.788723704\d*, 2\.2363101738\d*\), \(48\.924256558\d*, 2\.4423038261\d*\)\)/', 'We correctly deduced the bounds from the width of the map, the center, and the zoom.');
 
 $bounds = GMapBounds::getBoundsFromCenterAndZoom($center_coord, $zoom, 1, 1);
-$t->is($bounds->__toString(), '((48.856536, 2.339307), (48.856536, 2.339307))', 'On a déduit correctement les bounds à partir de la largeur de la carte, le centre et le zoom');
-
-$t->diag('Fin du test');
+$t->is($bounds->__toString(), '((48.856536, 2.339307), (48.856536, 2.339307))', 'We correctly deduced the bounds from the width of the map, the center, and the zoom.');

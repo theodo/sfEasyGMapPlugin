@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Teste la sauvegarde d'équipes dans le backend
  * @author fabriceb
  * @since Feb 16, 2009 fabriceb
  */
-include dirname(__FILE__).'/../bootstrap/unit.php';
+require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
 $t = new lime_test(10, new lime_output_color());
 
@@ -55,4 +54,3 @@ $t->is($gMap->getZoom(), 7, 'The zoom of the map is ok');
 $gMap->centerAndZoomOnMarkers();
 $t->is($gMap->getCenterCoord()->__toString(), '48.7538615, 5.3835875', 'The center of the map is ok');
 $t->is($gMap->getZoom(), 7, 'The zoom of the map is ok');
-

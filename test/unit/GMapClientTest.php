@@ -1,11 +1,10 @@
 <?php
-
 /**
  * Teste la sauvegarde d'équipes dans le backend
  * @author fabriceb
  * @since Feb 16, 2009 fabriceb
  */
-include dirname(__FILE__).'/../bootstrap/unit.php';
+require_once dirname(__FILE__).'/../bootstrap/unit.php';
 
 $t = new lime_test(11, new lime_output_color());
 
