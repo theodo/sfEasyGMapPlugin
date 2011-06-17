@@ -11,26 +11,26 @@ sfEasyGMapAddressGuesser = function(formFieldIds, queryFormat, callback)
   }
 };
 
-sfEasyGMapAddressGuesser.prototype = 
+sfEasyGMapAddressGuesser.prototype =
 {
   formFieldIds: [],
   queryFormat: '',
   callback: null,
   searchResponseFor: ['LocalityName', 'ThoroughfareName', 'CountryNameCode', 'CountryName', 'PostalCodeNumber', 'ThoroughfareNumber', 'ThoroughfareNumberSuffix', 'ThoroughfareNumberPrefix', 'AdministrativeAreaName'],
-  initialize: function(formFieldIds, queryFormat, callback) 
+  initialize: function(formFieldIds, queryFormat, callback)
   {
     var reference = this;
-    
+
     this.formFieldIds = formFieldIds;
     this.queryFormat = queryFormat;
-    
+
     if (typeof callback != 'function')
     {
       alert('Your callback must be a valid function.');
       return;
     }
     this.callback = callback;
-    
+
     // create events
     for (var i=0;i<formFieldIds.length;i++)
     {
@@ -41,24 +41,24 @@ sfEasyGMapAddressGuesser.prototype =
   hasAddressChanged: function()
   {
     var changed = false;
-    
+
     for (var i=0;i<this.formFieldIds.length;i++)
     {
       var inputElem = document.getElementById(this.formFieldIds[i]);
-    
+
       if (typeof inputElem.oldValue == 'undefined' || inputElem.oldValue != inputElem.value)
       {
         changed = true;
-        inputElem.oldValue = inputElem.value;        
+        inputElem.oldValue = inputElem.value;
       }
     }
-    
+
     return changed;
   },
   retrieveGuesses: function()
   {
     var reference = this;
-  
+
     // form the query
     var query = this.queryFormat;
     var num = 0;
@@ -66,23 +66,23 @@ sfEasyGMapAddressGuesser.prototype =
     while (start != -1)
     {
       query = query.slice(0, start) + document.getElementById(this.formFieldIds[num]).value.replace('%', '') + query.slice(start+2);
-    
+
       num += 1;
       start = query.search(/%s/);
     }
-    
+
     // retrieve guesses
     var geocoder = new GClientGeocoder();
     geocoder.getLocations(query, function(response) {
       reference.parseResponse(response);
-    });    
+    });
   },
   parseResponse: function(response)
   {
     var addresses = [];
-    
+
     if (response && response.Status.code == 200)
-    { 
+    {
       for (var i=0;i<response.Placemark.length;i++)
       {
         addresses[addresses.length] = {
@@ -93,13 +93,13 @@ sfEasyGMapAddressGuesser.prototype =
         };
       }
     }
-    
+
     this.callback(addresses);
   },
   extractInformation: function(obj)
   {
     var returnObj = {};
-    
+
     for (var key in obj)
     {
       if (typeof obj[key] == 'object')
@@ -109,16 +109,16 @@ sfEasyGMapAddressGuesser.prototype =
         {
           returnObj[sKey] = rExtracted[sKey];
         }
-        
+
         continue;
-      }    
-      
+      }
+
       if (this.inArray(key, this.searchResponseFor) == true)
       {
         returnObj[key] = obj[key];
       }
     }
-    
+
     return returnObj;
   },
   /**
@@ -131,7 +131,7 @@ sfEasyGMapAddressGuesser.prototype =
     var cleanedUp = {};
     for (var i=0;i<this.searchResponseFor.length;i++)
       cleanedUp[this.searchResponseFor[i]] = null;
-    
+
     // merge objects
     for (var key in obj)
     {
@@ -149,15 +149,15 @@ sfEasyGMapAddressGuesser.prototype =
               cleanedUp.ThoroughfareNumberPrefix = rs[1];
             if (rs[3] != '')
               cleanedUp.ThoroughfareNumberSuffix = rs[3];
-              
-            break;            
+
+            break;
           }
-          
+
         default:
           cleanedUp[key] = obj[key];
-      }    
+      }
     }
-    
+
     return cleanedUp;
   },
   trim: function(string)
@@ -168,7 +168,7 @@ sfEasyGMapAddressGuesser.prototype =
   {
     if (caseInSensitive)
       needle = needle.toLowerCase();
-  
+
     for (var i=0;i<myArray.length;i++)
     {
       if (caseInSensitive)
@@ -182,7 +182,7 @@ sfEasyGMapAddressGuesser.prototype =
           return true;
       }
     }
-    
+
     return false;
   }
 };

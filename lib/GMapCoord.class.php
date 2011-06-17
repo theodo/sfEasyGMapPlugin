@@ -25,10 +25,9 @@ class GMapCoord
 
   public function __construct($latitude = null, $longitude = null)
   {
-    $this->latitude     = floatval($latitude);
-    $this->longitude    = floatval($longitude);
+    $this->latitude = floatval($latitude);
+    $this->longitude = floatval($longitude);
   }
-
 
   /**
    *
@@ -49,7 +48,7 @@ class GMapCoord
     }
 
     $distance_query = '(POW(( %s - %F ),2) + POW(( %s - %F ),2))';
-    $distance_query = sprintf($distance_query,$lat_col_name, $lat, $lng_col_name, $lng);
+    $distance_query = sprintf($distance_query, $lat_col_name, $lat, $lng_col_name, $lng);
 
     $criteria->addAsColumn('distance', $distance_query);
     $criteria->addAscendingOrderByColumn('distance');
@@ -78,16 +77,16 @@ class GMapCoord
       $criteria = new Criteria();
     }
 
-    $k = pow(rad2deg($distance/self::EARTH_RADIUS),2);
+    $k = pow(rad2deg($distance / self::EARTH_RADIUS), 2);
 
     $distance_query = 'POW(( %s - %F ),2) + POW(( %s - %F ),2) < %F';
-    $distance_query = sprintf($distance_query,$lat_col_name, $lat, $lng_col_name, $lng, $k);
+    $distance_query = sprintf($distance_query, $lat_col_name, $lat, $lng_col_name, $lng, $k);
 
-    $criteria->add($lat_col_name,$distance_query,Criteria::CUSTOM);
+    $criteria->add($lat_col_name, $distance_query, Criteria::CUSTOM);
 
-    if($order_by_distance)
+    if ($order_by_distance)
     {
-      $criteria = self::criteriaOrderByDistance($lat_col_name,$lng_col_name,$lat,$lng,$criteria);
+      $criteria = self::criteriaOrderByDistance($lat_col_name, $lng_col_name, $lat, $lng, $criteria);
     }
 
     return $criteria;
@@ -165,13 +164,13 @@ class GMapCoord
    */
   public static function createFromString($string)
   {
-    $coord_array = explode(',',$string);
-    if (count($coord_array)==2)
+    $coord_array = explode(',', $string);
+    if (count($coord_array) == 2)
     {
       $latitude = floatval(trim($coord_array[0]));
       $longitude = floatval(trim($coord_array[1]));
 
-      return new GMapCoord($latitude,$longitude);
+      return new GMapCoord($latitude, $longitude);
     }
 
     return null;
@@ -197,13 +196,13 @@ class GMapCoord
    * @author fabriceb
    * @since Feb 18, 2009 fabriceb
    */
-  public static function fromLngToPix($lng,$zoom)
+  public static function fromLngToPix($lng, $zoom)
   {
     $lngrad = deg2rad($lng);
     $mercx = $lngrad;
     $cartx = $mercx + pi();
-    $pixelx = $cartx * 256/(2*pi());
-    $pixelx_zoom =  $pixelx * pow(2,$zoom);
+    $pixelx = $cartx * 256 / (2 * pi());
+    $pixelx_zoom = $pixelx * pow(2, $zoom);
 
     return $pixelx_zoom;
   }
@@ -218,7 +217,7 @@ class GMapCoord
    * @author fabriceb
    * @since Feb 18, 2009 fabriceb
    */
-  public static function fromLatToPix($lat,$zoom)
+  public static function fromLatToPix($lat, $zoom)
   {
     if ($lat == 90)
     {
@@ -231,13 +230,13 @@ class GMapCoord
     else
     {
       $latrad = deg2rad($lat);
-      $mercy = log(tan(pi()/4+$latrad/2));
+      $mercy = log(tan(pi() / 4 + $latrad / 2));
       $carty = pi() - $mercy;
       $pixely = $carty * 256 / 2 / pi();
       $pixely = max(0, $pixely); // correct rounding errors near north and south poles
       $pixely = min(256, $pixely); // correct rounding errors near north and south poles
     }
-    $pixely_zoom = $pixely * pow(2,$zoom);
+    $pixely_zoom = $pixely * pow(2, $zoom);
 
     return $pixely_zoom;
   }
@@ -252,9 +251,9 @@ class GMapCoord
    * @author fabriceb
    * @since Feb 18, 2009 fabriceb
    */
-  public static function fromPixToLng($pixelx_zoom,$zoom)
+  public static function fromPixToLng($pixelx_zoom, $zoom)
   {
-    $pixelx = $pixelx_zoom / pow(2,$zoom);
+    $pixelx = $pixelx_zoom / pow(2, $zoom);
     $cartx = $pixelx / 256 * 2 * pi();
     $mercx = $cartx - pi();
     $lngrad = $mercx;
@@ -273,9 +272,9 @@ class GMapCoord
    * @author fabriceb
    * @since Feb 18, 2009 fabriceb
    */
-  public static function fromPixToLat($pixely_zoom,$zoom)
+  public static function fromPixToLat($pixely_zoom, $zoom)
   {
-    $pixely = $pixely_zoom / pow(2,$zoom);
+    $pixely = $pixely_zoom / pow(2, $zoom);
     if ($pixely == 0)
     {
       $lat = 90;
@@ -288,7 +287,7 @@ class GMapCoord
     {
       $carty = $pixely / 256 * 2 * pi();
       $mercy = pi() - $carty;
-      $latrad = 2 * atan(exp($mercy))-pi()/2;
+      $latrad = 2 * atan(exp($mercy)) - pi() / 2;
       $lat = rad2deg($latrad);
     }
 
@@ -305,21 +304,21 @@ class GMapCoord
    */
   public static function getMassCenterCoord($coords)
   {
-    if (count($coords)==0)
+    if (count($coords) == 0)
     {
 
       return null;
     }
     $center_lat = 0;
     $center_lng = 0;
-    foreach($coords as $coord)
+    foreach ($coords as $coord)
     {
       /* @var $coord GMapCoord */
       $center_lat += $coord->getLatitude();
       $center_lng += $coord->getLongitude();
     }
 
-    return new GMapCoord($center_lat/count($coords),$center_lng/count($coords));
+    return new GMapCoord($center_lat / count($coords), $center_lng / count($coords));
   }
 
   /**
@@ -363,10 +362,10 @@ class GMapCoord
    */
   public function distanceFrom($coord2)
   {
-    $lat_dist = abs($this->getLatitude()-$coord2->getLatitude());
-    $lng_dist = abs($this->getLongitude()-$coord2->getLongitude());
+    $lat_dist = abs($this->getLatitude() - $coord2->getLatitude());
+    $lng_dist = abs($this->getLongitude() - $coord2->getLongitude());
 
-    $rad_dist = deg2rad(sqrt(pow($lat_dist,2)+pow($lng_dist,2)));
+    $rad_dist = deg2rad(sqrt(pow($lat_dist, 2) + pow($lng_dist, 2)));
 
     return $rad_dist * self::EARTH_RADIUS;
   }
@@ -389,7 +388,7 @@ class GMapCoord
     $lon2 = $coord2->getLongitude();
 
     $theta = $lon1 - $lon2;
-    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) + cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
     $dist = acos($dist);
     $dist = rad2deg($dist);
     $miles = $dist * 60 * 1.1515;
@@ -397,7 +396,7 @@ class GMapCoord
     return $miles * 1.609344;
   }
 
- /**
+  /**
    * exact distance with Haversine formula
    *
    * @param GMapCoord $coord2
