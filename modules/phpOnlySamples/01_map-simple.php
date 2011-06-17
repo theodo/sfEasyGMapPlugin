@@ -1,9 +1,8 @@
 <?php
-
 //
 // Initialisation
 //
-define('GMAP_LIB_PATH',dirname(__FILE__).'/../../lib/');
+define('GMAP_LIB_PATH', dirname(__FILE__).'/../../lib/');
 require_once(GMAP_LIB_PATH.'GMap.class.php');
 
 //
@@ -18,6 +17,7 @@ $gMap->setWidth('100%');
 //
 // View
 //
+
 ?>
 
 <?php require_once(GMAP_LIB_PATH.'helper/GMapHelper.php'); ?>
