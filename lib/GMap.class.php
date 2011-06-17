@@ -3,39 +3,39 @@
 // Make GMap independent from symfony
 if (!class_exists('GMapBounds', true))
 {
-  require_once  dirname(__FILE__).'/GMapBounds.class.php';
+  require_once dirname(__FILE__).'/GMapBounds.class.php';
 }
 if (!class_exists('GMapClient', true))
 {
-  require_once  dirname(__FILE__).'/GMapClient.class.php';
+  require_once dirname(__FILE__).'/GMapClient.class.php';
 }
 if (!class_exists('GMapCoord', true))
 {
-  require_once  dirname(__FILE__).'/GMapCoord.class.php';
+  require_once dirname(__FILE__).'/GMapCoord.class.php';
 }
 if (!class_exists('GMapEvent', true))
 {
-  require_once  dirname(__FILE__).'/GMapEvent.class.php';
+  require_once dirname(__FILE__).'/GMapEvent.class.php';
 }
 if (!class_exists('GMapGeocodedAddress', true))
 {
-  require_once  dirname(__FILE__).'/GMapGeocodedAddress.class.php';
+  require_once dirname(__FILE__).'/GMapGeocodedAddress.class.php';
 }
 if (!class_exists('GMapMarkerImage', true))
 {
-  require_once  dirname(__FILE__).'/GMapMarkerImage.class.php';
+  require_once dirname(__FILE__).'/GMapMarkerImage.class.php';
 }
 if (!class_exists('GMapMarker', true))
 {
-  require_once  dirname(__FILE__).'/GMapMarker.class.php';
+  require_once dirname(__FILE__).'/GMapMarker.class.php';
 }
 if (!class_exists('GMapDirection', true))
 {
-  require_once  dirname(__FILE__).'/GMapDirection.class.php';
+  require_once dirname(__FILE__).'/GMapDirection.class.php';
 }
 if (!class_exists('RenderTag', true))
 {
-  require_once  dirname(__FILE__).'/external/RenderTag.class.php';
+  require_once dirname(__FILE__).'/external/RenderTag.class.php';
 }
 
 /**

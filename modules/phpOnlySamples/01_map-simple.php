@@ -3,7 +3,7 @@
 // Initialisation
 //
 define('GMAP_LIB_PATH', dirname(__FILE__).'/../../lib/');
-require_once(GMAP_LIB_PATH.'GMap.class.php');
+require_once GMAP_LIB_PATH.'GMap.class.php';
 
 //
 // Controller
@@ -20,7 +20,7 @@ $gMap->setWidth('100%');
 
 ?>
 
-<?php require_once(GMAP_LIB_PATH.'helper/GMapHelper.php'); ?>
+<?php require_once GMAP_LIB_PATH.'helper/GMapHelper.php'; ?>
 
 <html>
   <head>

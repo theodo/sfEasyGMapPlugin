@@ -3,7 +3,7 @@
 // Initialisation
 //
 define('GMAP_LIB_PATH', dirname(__FILE__).'/../../lib/');
-require_once(GMAP_LIB_PATH.'GMap.class.php');
+require_once GMAP_LIB_PATH.'GMap.class.php';
 
 
 
@@ -31,7 +31,7 @@ $gMap->addEvent(new GMapEvent('zoom_changed', 'setTimeout(moveToDarwin, 1500);')
 
 ?>
 
-<?php require_once(GMAP_LIB_PATH.'helper/GMapHelper.php'); ?>
+<?php require_once GMAP_LIB_PATH.'helper/GMapHelper.php'; ?>
 
 <html>
   <head>

@@ -6,7 +6,7 @@
  */
 
 error_reporting(E_ALL); // no E_STRICT
-require_once('PEAR/PackageFileManager2.php');
+require_once 'PEAR/PackageFileManager2.php';
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 
 $packagexml = new PEAR_PackageFileManager2;
@@ -53,7 +53,10 @@ $packagexml->addPackageDepWithChannel('required', 'symfony', 'pear.symfony-proje
 $packagexml->generateContents(); // Add the files
 
 if (isset($_GET['make']) || (isset($_SERVER['argv']) && @$_SERVER['argv'][1] == 'make'))
+{
   $packagexml->writePackageFile();
+}
 else
+{
   $packagexml->debugPackageFile();
-
+}

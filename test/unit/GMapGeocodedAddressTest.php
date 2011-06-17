@@ -15,7 +15,7 @@ $gAddress = new GMapGeocodedAddress('60 rue de Seine, Paris');
 $t->diag('->getRawAddress');
 $t->is($gAddress->getRawAddress(), '60 rue de Seine, Paris', '->getRawAddress ok');
 
-require_once(dirname(__FILE__).'/../../lib/GMapClientTestCache.class.php');
+require_once dirname(__FILE__).'/../../lib/GMapClientTestCache.class.php';
 $gMapClient = new GMapClient('test');
 $gMapClientTestCache = new GMapClientTestCache();
 $gMapClient->setCache($gMapClientTestCache);

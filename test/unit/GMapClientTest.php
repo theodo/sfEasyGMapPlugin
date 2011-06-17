@@ -26,7 +26,7 @@ $t->is($gMapClient->getGoogleJsUrl(), 'http://maps.google.com/maps/api/js?sensor
 $t->diag('->setCache / getCache / hasCache');
 $t->ok(!$gMapClient->hasCache(), 'is not using cache');
 
-require_once(dirname(__FILE__).'/../../lib/GMapClientTestCache.class.php');
+require_once dirname(__FILE__).'/../../lib/GMapClientTestCache.class.php';
 $gMapClientTestCache = new GMapClientTestCache();
 $gMapClient->setCache($gMapClientTestCache);
 $t->ok($gMapClient->hasCache(), 'is using cache');

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../lib/external/lime.php');
+require_once dirname(__FILE__).'/../lib/external/lime.php';
 
 $tests = new lime_harness(array('verbose'=>true));
 $tests->register_glob(dirname(__FILE__).'/unit/*Test.php');
