@@ -1,10 +1,11 @@
 <?php
+
 /**
  * Teste la sauvegarde d'équipes dans le backend
  * @author fabriceb
  * @since Feb 16, 2009 fabriceb
  */
-include(dirname(__FILE__).'/../bootstrap/unit.php');
+include dirname(__FILE__).'/../bootstrap/unit.php';
 
 $t = new lime_test(11, new lime_output_color());
 
@@ -12,30 +13,30 @@ $t->diag('GMapClient Tests');
 $gMapClient = new GMapClient('test');
 
 $t->diag('->getApiKey');
-$t->is($gMapClient->getAPIKey(),'test','key returned well');
+$t->is($gMapClient->getAPIKey(), 'test', 'key returned well');
 
 $t->diag('->setApiKey');
 $gMapClient->setAPIKey('test2');
-$t->is($gMapClient->getAPIKey(),'test2','key returned well');
+$t->is($gMapClient->getAPIKey(), 'test2', 'key returned well');
 
 $t->diag('->getGoogleJsUrl');
-$t->is($gMapClient->getGoogleJsUrl(false),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
-$t->is($gMapClient->getGoogleJsUrl(true),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
-$t->is($gMapClient->getGoogleJsUrl(),'http://maps.google.com/maps/api/js?sensor=false','getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(false), 'http://maps.google.com/maps/api/js?sensor=false', 'getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(true), 'http://maps.google.com/maps/api/js?sensor=false', 'getGoogleJsUrl working');
+$t->is($gMapClient->getGoogleJsUrl(), 'http://maps.google.com/maps/api/js?sensor=false', 'getGoogleJsUrl working');
 
 $t->diag('->setCache / getCache / hasCache');
-$t->ok(!$gMapClient->hasCache(),'is not using cache');
+$t->ok(!$gMapClient->hasCache(), 'is not using cache');
 
 require_once(dirname(__FILE__).'/../../lib/GMapClientTestCache.class.php');
 $gMapClientTestCache = new GMapClientTestCache();
 $gMapClient->setCache($gMapClientTestCache);
-$t->ok($gMapClient->hasCache(),'is using cache');
+$t->ok($gMapClient->hasCache(), 'is using cache');
 
-$t->is($gMapClient->getCache(),$gMapClientTestCache,'getCache working');
+$t->is($gMapClient->getCache(), $gMapClientTestCache, 'getCache working');
 
 $t->diag('->getGeocodingInfo');
-$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris'),'200,8,48.8537950,2.3369433','Cached geocoding working');
-$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris','xml'),'<?xml version="1.0" encoding="UTF-8" ?>
+$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris'), '200,8,48.8537950,2.3369433', 'Cached geocoding working');
+$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris', 'xml'), '<?xml version="1.0" encoding="UTF-8" ?>
 <kml xmlns="http://earth.google.com/kml/2.0"><Response>
   <name>60 rue de Seine, Paris</name>
   <Status>
@@ -52,8 +53,8 @@ $t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris','xml'),'<?xml vers
 
     <Point><coordinates>2.3369433,48.8537950,0</coordinates></Point>
   </Placemark>
-</Response></kml>','Cached geocoding working');
-$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris','json'),'{
+</Response></kml>', 'Cached geocoding working');
+$t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris', 'json'), '{
   "name": "60 rue de Seine, Paris",
   "Status": {
     "code": 200,
@@ -75,4 +76,4 @@ $t->is($gMapClient->getGeocodingInfo('60 rue de Seine, Paris','json'),'{
       "coordinates": [ 2.3369433, 48.8537950, 0 ]
     }
   } ]
-}','Cached geocoding working');
+}', 'Cached geocoding working');
