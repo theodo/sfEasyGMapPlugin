@@ -30,6 +30,7 @@ $packagexml->addMaintainer('developer', 'benja-M-1', 'Benjamin Grandfond', 'benj
 $packagexml->addMaintainer('contributor', 'gionn', 'Giovanni Toraldo', 'gt@libersoft.it');
 $packagexml->addMaintainer('contributor', 'marekkalnik', 'Marek Kalnik', 'marekk@theodo.fr');
 $packagexml->addMaintainer('contributor', 'jlirochon', 'Julien Lirochon', 'julien@lirochon.net');
+$packagexml->addMaintainer('contributor', 'nicolasmartin', 'Nicolas Martin', 'nicolas.martin@apiwork.com');
 
 $packagexml->setLicense('MIT License', 'http://www.symfony-project.org/license');
 
