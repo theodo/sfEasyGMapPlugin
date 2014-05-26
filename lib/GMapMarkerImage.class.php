@@ -214,7 +214,7 @@ class GMapMarkerImage
   public function sizeToJs()
   {
     $size = 'null';
-    if (!empty($this->size['width']) && !empty($this->size['height']))
+    if (!empty($this->size['width']) || !empty($this->size['height']))
     {
       $size = 'new google.maps.Size('.$this->getWidth().','.$this->getHeight().')';
     }
@@ -231,7 +231,7 @@ class GMapMarkerImage
   public function originToJs()
   {
     $origin = 'null';
-    if (!empty($this->origin['x']) && !empty($this->origin['y']))
+    if (!empty($this->origin['x']) || !empty($this->origin['y']))
     {
       $origin = 'new google.maps.Point('.$this->getOriginX().','.$this->getOriginY().')';
     }
@@ -248,9 +248,9 @@ class GMapMarkerImage
   public function anchorToJs()
   {
     $anchor = 'null';
-    if (!empty($this->anchor['x']) && !empty($this->anchor['y']))
+    if (!empty($this->anchor['x']) || !empty($this->anchor['y']))
     {
-      $anchor = $this->getName().'new google.maps.Point('.$this->getAnchorX().','.$this->getAnchorY().')';
+      $anchor = 'new google.maps.Point('.$this->getAnchorX().','.$this->getAnchorY().')';
     }
 
     return $anchor;
